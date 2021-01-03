@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 void main() {
   runApp(
@@ -10,14 +11,57 @@ void main() {
   );
 }
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  TextEditingController _nameController = TextEditingController();
+  var myText = "Change Me";
+  @override
+  void initState() {
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[200],
       appBar: AppBar(
         title: Text('Awesome App'),
       ),
-      body: Container(),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: SingleChildScrollView (
+                  child: Card(
+            child: Column(
+              children: [
+                Image.asset(
+                  "assets/bg.jpg",
+                  fit: BoxFit.cover,
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Text(myText,
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+                SizedBox(
+                  height: 20,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: TextField(
+                    controller: _nameController,
+                    keyboardType: TextInputType.text,
+                    decoration: InputDecoration(hintText:"Enter something here", labelText: "Name", border: OutlineInputBorder()) ,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
@@ -46,8 +90,11 @@ class HomePage extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        child: Icon(Icons.edit),
+        onPressed: () {
+          myText = _nameController.text;
+          setState(() { });
+        },
+        child: Icon(Icons.refresh),
       ),
     );
   }
