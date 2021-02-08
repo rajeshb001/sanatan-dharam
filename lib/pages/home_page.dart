@@ -43,7 +43,7 @@ class _HomePageState extends State<HomePage> {
     var res = await http.get(url);
     data = jsonDecode(res.body);
     //Text(item);
-
+//
     //data = data['homepageTempledetailModels'];
     //print(data);
     setState(() {});
