@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_learnings/utils/Constants.dart';
+import 'package:sanatan_dharam/utils/Constants.dart';
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
@@ -67,8 +67,13 @@ class _HomePageState extends State<HomePage> {
               })
         ],
       ),
-      body: Padding(
+      body: Container(
           padding: const EdgeInsets.all(8.0),
+          decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage("assets/aum.PNG"),
+                repeat: ImageRepeat.repeat),
+          ),
           child: SingleChildScrollView(
             child: data != null
                 ? Column(
@@ -93,41 +98,27 @@ class _HomePageState extends State<HomePage> {
                             style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
+                              color: Colors.red,
                             ),
                           ),
                         ),
                       ),
-                      Divider(),
+                      Divider(
+                        color: Colors.red,
+                        thickness: 2,
+                      ),
                       SizedBox(height: 10),
                       CarouselSlider(
                           items: [
-                            Container(
-                              decoration: BoxDecoration(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(12)),
-                                  image: DecorationImage(
-                                      image: NetworkImage(
-                                          "https://www.shrisanatandharam.com/FileUpload/AD140BEB-AA50-47E5-BDF8-CBA57EEE2BE7.jpeg"),
-                                      fit: BoxFit.cover)),
-                            ),
-                            Container(
-                              decoration: BoxDecoration(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(12)),
-                                  image: DecorationImage(
-                                      image: NetworkImage(
-                                          "https://www.shrisanatandharam.com/FileUpload/11F0762D-BE9E-423F-A5CC-2FF369E05456.jpeg"),
-                                      fit: BoxFit.cover)),
-                            ),
-                            Container(
-                              decoration: BoxDecoration(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(12)),
-                                  image: DecorationImage(
-                                      image: NetworkImage(
-                                          "https://www.shrisanatandharam.com/FileUpload/F5F0178A-4177-4B3D-B76B-894351B1E02D.jpeg"),
-                                      fit: BoxFit.cover)),
-                            ),
+                            _carouselItem(context,
+                                "https://www.shrisanatandharam.com/FileUpload/AD140BEB-AA50-47E5-BDF8-CBA57EEE2BE7.jpeg",
+                                "Temple Name"),
+                            _carouselItem(context,
+                                "https://www.shrisanatandharam.com/FileUpload/11F0762D-BE9E-423F-A5CC-2FF369E05456.jpeg",
+                                "Temple Name"),
+                            _carouselItem(context,
+                                "https://www.shrisanatandharam.com/FileUpload/F5F0178A-4177-4B3D-B76B-894351B1E02D.jpeg",
+                                "Temple Name"),
                           ],
                           options: CarouselOptions(
                             height: 200,
@@ -143,41 +134,27 @@ class _HomePageState extends State<HomePage> {
                             style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
+                              color: Colors.red,
                             ),
                           ),
                         ),
                       ),
-                      Divider(),
+                      Divider(
+                        color: Colors.red,
+                        thickness: 2,
+                      ),
                       SizedBox(height: 10),
                       CarouselSlider(
                           items: [
-                            Container(
-                              decoration: BoxDecoration(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(12)),
-                                  image: DecorationImage(
-                                      image: NetworkImage(
-                                          "https://www.shrisanatandharam.com/FileUpload/AD140BEB-AA50-47E5-BDF8-CBA57EEE2BE7.jpeg"),
-                                      fit: BoxFit.cover)),
-                            ),
-                            Container(
-                              decoration: BoxDecoration(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(12)),
-                                  image: DecorationImage(
-                                      image: NetworkImage(
-                                          "https://www.shrisanatandharam.com/FileUpload/11F0762D-BE9E-423F-A5CC-2FF369E05456.jpeg"),
-                                      fit: BoxFit.cover)),
-                            ),
-                            Container(
-                              decoration: BoxDecoration(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(12)),
-                                  image: DecorationImage(
-                                      image: NetworkImage(
-                                          "https://www.shrisanatandharam.com/FileUpload/F5F0178A-4177-4B3D-B76B-894351B1E02D.jpeg"),
-                                      fit: BoxFit.cover)),
-                            ),
+                            _carouselItem(context,
+                                "https://www.shrisanatandharam.com/FileUpload/AD140BEB-AA50-47E5-BDF8-CBA57EEE2BE7.jpeg",
+                                "Temple Name"),
+                            _carouselItem(context,
+                                "https://www.shrisanatandharam.com/FileUpload/11F0762D-BE9E-423F-A5CC-2FF369E05456.jpeg",
+                                "Temple Name"),
+                            _carouselItem(context,
+                                "https://www.shrisanatandharam.com/FileUpload/F5F0178A-4177-4B3D-B76B-894351B1E02D.jpeg",
+                                "Temple Name"),
                           ],
                           options: CarouselOptions(
                             height: 200,
@@ -188,8 +165,11 @@ class _HomePageState extends State<HomePage> {
                     ],
                   )
                 : Column(children: [
-                    Center(
-                      child: CircularProgressIndicator(),
+                    SizedBox(
+                      height: 400,
+                      child: Center(
+                        child: CircularProgressIndicator(),
+                      ),
                     ),
                   ]),
           )),
@@ -203,4 +183,41 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+}
+
+Widget _carouselItem(context, String imgPath, String title) {
+  return InkWell(
+    onTap: () { 
+        print("Click event on Container"); 
+        Navigator.pushReplacementNamed(context, "/details");
+    },
+    child: Stack(
+      children: [
+        Container(
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(12)),
+              image: DecorationImage(
+                  image: NetworkImage(imgPath), fit: BoxFit.cover)),
+        ),
+        Container(
+            height: 30,
+            alignment: Alignment.center,
+            margin: EdgeInsets.only(top: 170.0),
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.centerLeft,
+                end: Alignment.centerRight,
+                colors: <Color>[Colors.red, Colors.orange],
+              ),
+            ),
+            child: Text(
+              title,
+              style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15.0),
+            )),
+      ],
+    ),
+  );
 }
