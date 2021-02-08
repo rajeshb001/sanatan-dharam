@@ -17,20 +17,7 @@ class _HomePageState extends State<HomePage> {
   var myText = "Change Me";
   var url = "https://www.shrisanatandharam.com/api/home/HomePage";
   var data;
-  List homepageBanners = [
-    Image.network(
-      "https://www.shrisanatandharam.com/FileUpload/AD140BEB-AA50-47E5-BDF8-CBA57EEE2BE7.jpeg",
-      fit: BoxFit.cover,
-    ),
-    Image.network(
-      "https://www.shrisanatandharam.com/FileUpload/11F0762D-BE9E-423F-A5CC-2FF369E05456.jpeg",
-      fit: BoxFit.cover,
-    ),
-    Image.network(
-      "https://www.shrisanatandharam.com/FileUpload/F5F0178A-4177-4B3D-B76B-894351B1E02D.jpeg",
-      fit: BoxFit.cover,
-    ),
-  ];
+  List homepageBanners = [];
   int index = 0;
 
   @override
@@ -42,6 +29,22 @@ class _HomePageState extends State<HomePage> {
   getData() async {
     var res = await http.get(url);
     data = jsonDecode(res.body);
+
+    homepageBanners = [
+      Image.network(
+        "https://www.shrisanatandharam.com/FileUpload/AD140BEB-AA50-47E5-BDF8-CBA57EEE2BE7.jpeg",
+        fit: BoxFit.cover,
+      ),
+      Image.network(
+        "https://www.shrisanatandharam.com/FileUpload/11F0762D-BE9E-423F-A5CC-2FF369E05456.jpeg",
+        fit: BoxFit.cover,
+      ),
+      Image.network(
+        "https://www.shrisanatandharam.com/FileUpload/F5F0178A-4177-4B3D-B76B-894351B1E02D.jpeg",
+        fit: BoxFit.cover,
+      ),
+    ];
+
     //Text(item);
 //
     //data = data['homepageTempledetailModels'];
@@ -67,120 +70,128 @@ class _HomePageState extends State<HomePage> {
       body: Padding(
           padding: const EdgeInsets.all(8.0),
           child: SingleChildScrollView(
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 200,
-                  width: double.infinity,
-                  child: Carousel(
-                    dotSize: 4.0,
-                    dotSpacing: 15.0,
-                    indicatorBgPadding: 5.0,
-                    dotBgColor: Colors.transparent,
-                    images: homepageBanners,
-                  ),
-                ),
-                SizedBox(height: 20),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Container(
-                    child: Text(
-                      "TEMPLES",
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
+            child: data != null
+                ? Column(
+                    children: [
+                      SizedBox(
+                        height: 200,
+                        width: double.infinity,
+                        child: Carousel(
+                          dotSize: 4.0,
+                          dotSpacing: 15.0,
+                          indicatorBgPadding: 5.0,
+                          dotBgColor: Colors.transparent,
+                          images: homepageBanners,
+                        ),
                       ),
-                    ),
-                  ),
-                ),
-                Divider(),
-                SizedBox(height: 10),
-                CarouselSlider(
-                    items: [
-                      Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(12)),
-                            image: DecorationImage(
-                                image: NetworkImage(
-                                    "https://www.shrisanatandharam.com/FileUpload/AD140BEB-AA50-47E5-BDF8-CBA57EEE2BE7.jpeg"),
-                                fit: BoxFit.cover)),
+                      SizedBox(height: 20),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Container(
+                          child: Text(
+                            "TEMPLES",
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
                       ),
-                      Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(12)),
-                            image: DecorationImage(
-                                image: NetworkImage(
-                                    "https://www.shrisanatandharam.com/FileUpload/11F0762D-BE9E-423F-A5CC-2FF369E05456.jpeg"),
-                                fit: BoxFit.cover)),
+                      Divider(),
+                      SizedBox(height: 10),
+                      CarouselSlider(
+                          items: [
+                            Container(
+                              decoration: BoxDecoration(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(12)),
+                                  image: DecorationImage(
+                                      image: NetworkImage(
+                                          "https://www.shrisanatandharam.com/FileUpload/AD140BEB-AA50-47E5-BDF8-CBA57EEE2BE7.jpeg"),
+                                      fit: BoxFit.cover)),
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(12)),
+                                  image: DecorationImage(
+                                      image: NetworkImage(
+                                          "https://www.shrisanatandharam.com/FileUpload/11F0762D-BE9E-423F-A5CC-2FF369E05456.jpeg"),
+                                      fit: BoxFit.cover)),
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(12)),
+                                  image: DecorationImage(
+                                      image: NetworkImage(
+                                          "https://www.shrisanatandharam.com/FileUpload/F5F0178A-4177-4B3D-B76B-894351B1E02D.jpeg"),
+                                      fit: BoxFit.cover)),
+                            ),
+                          ],
+                          options: CarouselOptions(
+                            height: 200,
+                            enlargeCenterPage: true,
+                            autoPlayCurve: Curves.easeInOut,
+                          )),
+                      SizedBox(height: 40),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Container(
+                          child: Text(
+                            "PANCHANG",
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
                       ),
-                      Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(12)),
-                            image: DecorationImage(
-                                image: NetworkImage(
-                                    "https://www.shrisanatandharam.com/FileUpload/F5F0178A-4177-4B3D-B76B-894351B1E02D.jpeg"),
-                                fit: BoxFit.cover)),
-                      ),
+                      Divider(),
+                      SizedBox(height: 10),
+                      CarouselSlider(
+                          items: [
+                            Container(
+                              decoration: BoxDecoration(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(12)),
+                                  image: DecorationImage(
+                                      image: NetworkImage(
+                                          "https://www.shrisanatandharam.com/FileUpload/AD140BEB-AA50-47E5-BDF8-CBA57EEE2BE7.jpeg"),
+                                      fit: BoxFit.cover)),
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(12)),
+                                  image: DecorationImage(
+                                      image: NetworkImage(
+                                          "https://www.shrisanatandharam.com/FileUpload/11F0762D-BE9E-423F-A5CC-2FF369E05456.jpeg"),
+                                      fit: BoxFit.cover)),
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(12)),
+                                  image: DecorationImage(
+                                      image: NetworkImage(
+                                          "https://www.shrisanatandharam.com/FileUpload/F5F0178A-4177-4B3D-B76B-894351B1E02D.jpeg"),
+                                      fit: BoxFit.cover)),
+                            ),
+                          ],
+                          options: CarouselOptions(
+                            height: 200,
+                            enlargeCenterPage: true,
+                            autoPlayCurve: Curves.easeInOut,
+                          )),
+                      SizedBox(height: 40),
                     ],
-                    options: CarouselOptions(
-                      height: 200,
-                      enlargeCenterPage: true,
-                      autoPlayCurve: Curves.easeInOut,
-                    )),
-                SizedBox(height: 40),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Container(
-                    child: Text(
-                      "PANCHANG",
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
+                  )
+                : Column(children: [
+                    Center(
+                      child: CircularProgressIndicator(),
                     ),
-                  ),
-                ),
-                Divider(),
-                SizedBox(height: 10),
-                CarouselSlider(
-                    items: [
-                      Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(12)),
-                            image: DecorationImage(
-                                image: NetworkImage(
-                                    "https://www.shrisanatandharam.com/FileUpload/AD140BEB-AA50-47E5-BDF8-CBA57EEE2BE7.jpeg"),
-                                fit: BoxFit.cover)),
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(12)),
-                            image: DecorationImage(
-                                image: NetworkImage(
-                                    "https://www.shrisanatandharam.com/FileUpload/11F0762D-BE9E-423F-A5CC-2FF369E05456.jpeg"),
-                                fit: BoxFit.cover)),
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(12)),
-                            image: DecorationImage(
-                                image: NetworkImage(
-                                    "https://www.shrisanatandharam.com/FileUpload/F5F0178A-4177-4B3D-B76B-894351B1E02D.jpeg"),
-                                fit: BoxFit.cover)),
-                      ),
-                    ],
-                    options: CarouselOptions(
-                      height: 200,
-                      enlargeCenterPage: true,
-                      autoPlayCurve: Curves.easeInOut,
-                    )),
-                SizedBox(height: 40),
-
-                // Center(
-                //   child: CircularProgressIndicator(),
-                // ),
-              ],
-            ),
+                  ]),
           )),
       drawer: MyDrawer(),
       floatingActionButton: FloatingActionButton(
