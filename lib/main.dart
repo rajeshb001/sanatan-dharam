@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:splashscreen/splashscreen.dart';
 import 'package:sanatan_dharam/pages/home_page.dart';
@@ -16,26 +15,22 @@ Future main() async {
       //home:  HomePage(),
       home: SplashScreen(
         seconds: 5,
-        image: Image.asset("assets/logo.png"),
+        image: Image.asset("assets/sanatandharam-logo.png"),
         photoSize: 200.0,
         backgroundColor: Colors.redAccent,
         gradientBackground: LinearGradient(
-            begin: Alignment.centerLeft,
-            end: Alignment.centerRight,
-            colors: <Color>[
-              Colors.red,
-              Colors.orange
-            ],
-          ),
+          begin: Alignment.centerLeft,
+          end: Alignment.centerRight,
+          colors: <Color>[Colors.red, Colors.orange],
+        ),
         navigateAfterSeconds: HomePage(),
         loaderColor: Colors.white,
       ),
       theme: ThemeData(primarySwatch: Colors.red),
       routes: {
-        "/home":(contxt) => HomePage(), 
-        "/details":(contxt) => DetailsPage(), 
+        "/home": (contxt) => HomePage(),
+        "/details": (contxt) => DetailsPage(),
       },
     ),
   );
 }
-

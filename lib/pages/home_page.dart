@@ -1,8 +1,15 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
+import 'package:sanatan_dharam/models/homepage_gs.dart';
+import 'package:sanatan_dharam/models/homepage_school.dart';
+import 'package:sanatan_dharam/models/homepage_temples.dart';
 import 'package:sanatan_dharam/utils/Constants.dart';
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:sanatan_dharam/models/homepage_live.dart';
+import 'package:sanatan_dharam/models/homepage_mb.dart';
+import 'package:sanatan_dharam/models/homepage_dispensary.dart';
+import 'package:sanatan_dharam/services/api_manager.dart';
 
 import '../drawer.dart';
 import 'package:http/http.dart' as http;
@@ -52,6 +59,13 @@ class _HomePageState extends State<HomePage> {
   List homepageBanners = [];
   int index = 0;
 
+  Future<Welcome> _welcomeModel;
+  Future<Temples> _templesModel;
+  Future<Marriage> _marriageModel;
+  Future<Dispensary> _dispensaryModel;
+  Future<School> _schoolModel;
+  Future<Gs> _gsModel;
+
   // Future<Temples> futureTemples;
 
   @override
@@ -60,7 +74,14 @@ class _HomePageState extends State<HomePage> {
     //print(_checkInternetConnectivity());
     _checkInternetConnectivity().then((network) {
       if (network != null && network) {
+        _welcomeModel = API_Manager().getNews();
+        _templesModel = API_Manager().getTemples();
+        _marriageModel = API_Manager().getMarriages();
+        _dispensaryModel = API_Manager().getDispensary();
+        _schoolModel = API_Manager().getSchool();
+        _gsModel = API_Manager().getGs();
         getData();
+        //print(_welcomeModel);
       } else {
         _showDialog("No Internet", "You're not connected to any network.");
       }
@@ -75,17 +96,25 @@ class _HomePageState extends State<HomePage> {
 
     homepageBanners = [
       Image.network(
-        "https://www.shrisanatandharam.com/FileUpload/AD140BEB-AA50-47E5-BDF8-CBA57EEE2BE7.jpeg",
+        "https://shrisanatandharam.com/SliderImg/shrisanatandharam-slider-img-1.jpg",
         fit: BoxFit.cover,
       ),
       Image.network(
-        "https://www.shrisanatandharam.com/FileUpload/11F0762D-BE9E-423F-A5CC-2FF369E05456.jpeg",
+        "https://shrisanatandharam.com/SliderImg/shrisanatandharam-slider-img-2.jpg",
         fit: BoxFit.cover,
       ),
       Image.network(
-        "https://www.shrisanatandharam.com/FileUpload/F5F0178A-4177-4B3D-B76B-894351B1E02D.jpeg",
+        "https://shrisanatandharam.com/SliderImg/shrisanatandharam-slider-img-3.jpg",
         fit: BoxFit.cover,
       ),
+      Image.network(
+        "https://shrisanatandharam.com/SliderImg/shrisanatandharam-slider-img-4.jpg",
+        fit: BoxFit.cover,
+      ),
+      Image.network(
+        "https://shrisanatandharam.com/SliderImg/shrisanatandharam-slider-img-5.jpg",
+        fit: BoxFit.cover,
+      ),            
     ];
 
     //Text(item);
@@ -164,6 +193,55 @@ class _HomePageState extends State<HomePage> {
                         alignment: Alignment.centerLeft,
                         child: Container(
                           child: Text(
+                            "LIVE DARSHAN",
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.red,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Divider(
+                        color: Colors.red,
+                        thickness: 2,
+                      ),
+                      SizedBox(height: 10),
+                      FutureBuilder<Welcome>(
+                          future: _welcomeModel,
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              var itemCount = snapshot
+                                  .data.homepageTempleLiveStreamModels.length;
+                              return CarouselSlider.builder(
+                                  itemCount: itemCount,
+                                  itemBuilder: (context, index, realIdx) {
+                                    var item = snapshot.data
+                                        .homepageTempleLiveStreamModels[index];
+                                    return _carouselItem(
+                                        context,
+                                        "https://www.shrisanatandharam.com/FileUpload/" +
+                                            item.imageName,
+                                        item.organisationName);
+                                  },
+                                  options: CarouselOptions(
+                                    height: 200,
+                                    enlargeCenterPage: true,
+                                    autoPlayCurve: Curves.easeInOut,
+                                  ));
+
+                              // return Container(
+                              //   child: Text(item.organisationName.toString()),
+                              // );
+
+                            }
+                            return CircularProgressIndicator();
+                          }),
+                      SizedBox(height: 40),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Container(
+                          child: Text(
                             "TEMPLES",
                             style: TextStyle(
                               fontSize: 20,
@@ -178,32 +256,34 @@ class _HomePageState extends State<HomePage> {
                         thickness: 2,
                       ),
                       SizedBox(height: 10),
-                      CarouselSlider(
-                          items: [
-                            _carouselItem(
-                                context,
-                                "https://www.shrisanatandharam.com/FileUpload/AD140BEB-AA50-47E5-BDF8-CBA57EEE2BE7.jpeg",
-                                "Temple Name"),
-                            _carouselItem(
-                                context,
-                                "https://www.shrisanatandharam.com/FileUpload/11F0762D-BE9E-423F-A5CC-2FF369E05456.jpeg",
-                                "Temple Name"),
-                            _carouselItem(
-                                context,
-                                "https://www.shrisanatandharam.com/FileUpload/F5F0178A-4177-4B3D-B76B-894351B1E02D.jpeg",
-                                "Temple Name"),
-                          ],
-                          options: CarouselOptions(
-                            height: 200,
-                            enlargeCenterPage: true,
-                            autoPlayCurve: Curves.easeInOut,
-                          )),
+                      FutureBuilder<Temples>(
+                          future: _templesModel,
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              var itemCount = snapshot
+                                  .data.homepageTempledetailModels.length;
+                              return CarouselSlider.builder(
+                                  itemCount: itemCount,
+                                  itemBuilder: (context, index, realIdx) {
+                                    var item = snapshot.data
+                                        .homepageTempledetailModels[index];
+                                    return _carouselItem(
+                                        context,item.imageName,item.organisationName);
+                                  },
+                                  options: CarouselOptions(
+                                    height: 200,
+                                    enlargeCenterPage: true,
+                                    autoPlayCurve: Curves.easeInOut,
+                                  ));
+                            }
+                            return CircularProgressIndicator();
+                          }),
                       SizedBox(height: 40),
-                      Align(
+                    Align(
                         alignment: Alignment.centerLeft,
                         child: Container(
                           child: Text(
-                            "PANCHANG",
+                            "MARRIAGE BUREAU",
                             style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
@@ -217,27 +297,152 @@ class _HomePageState extends State<HomePage> {
                         thickness: 2,
                       ),
                       SizedBox(height: 10),
-                      CarouselSlider(
-                          items: [
-                            _carouselItem(
-                                context,
-                                "https://www.shrisanatandharam.com/FileUpload/AD140BEB-AA50-47E5-BDF8-CBA57EEE2BE7.jpeg",
-                                "Temple Name"),
-                            _carouselItem(
-                                context,
-                                "https://www.shrisanatandharam.com/FileUpload/11F0762D-BE9E-423F-A5CC-2FF369E05456.jpeg",
-                                "Temple Name"),
-                            _carouselItem(
-                                context,
-                                "https://www.shrisanatandharam.com/FileUpload/F5F0178A-4177-4B3D-B76B-894351B1E02D.jpeg",
-                                "Temple Name"),
-                          ],
-                          options: CarouselOptions(
-                            height: 200,
-                            enlargeCenterPage: true,
-                            autoPlayCurve: Curves.easeInOut,
-                          )),
-                      SizedBox(height: 40),
+                      FutureBuilder<Marriage>(
+                          future: _marriageModel,
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              var itemCount = snapshot
+                                  .data.homepageServiceImgList.length;
+                              return CarouselSlider.builder(
+                                  itemCount: itemCount,
+                                  itemBuilder: (context, index, realIdx) {
+                                    var item = snapshot.data
+                                        .homepageServiceImgList[index];
+                                    return _carouselItem(
+                                        context,item.imageName,item.organisationName);
+                                  },
+                                  options: CarouselOptions(
+                                    height: 200,
+                                    enlargeCenterPage: true,
+                                    autoPlayCurve: Curves.easeInOut,
+                                  ));
+                            }
+                            return CircularProgressIndicator();
+                          }),
+                      SizedBox(height: 40),    
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Container(
+                          child: Text(
+                            "DISPANSARY / PATHO LAB",
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.red,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Divider(
+                        color: Colors.red,
+                        thickness: 2,
+                      ),
+                      SizedBox(height: 10),
+                      FutureBuilder<Dispensary>(
+                          future: _dispensaryModel,
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              var itemCount = snapshot
+                                  .data.homepageServiceImgList.length;
+                              return CarouselSlider.builder(
+                                  itemCount: itemCount,
+                                  itemBuilder: (context, index, realIdx) {
+                                    var item = snapshot.data
+                                        .homepageServiceImgList[index];
+                                    return _carouselItem(
+                                        context,item.imageName,item.organisationName);
+                                  },
+                                  options: CarouselOptions(
+                                    height: 200,
+                                    enlargeCenterPage: true,
+                                    autoPlayCurve: Curves.easeInOut,
+                                  ));
+                            }
+                            return CircularProgressIndicator();
+                          }),
+                      SizedBox(height: 40),                   
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Container(
+                          child: Text(
+                            "SCHOOL/INSTITUTION",
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.red,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Divider(
+                        color: Colors.red,
+                        thickness: 2,
+                      ),
+                      SizedBox(height: 10),
+                      FutureBuilder<School>(
+                          future: _schoolModel,
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              var itemCount = snapshot
+                                  .data.homepageServiceImgList.length;
+                              return CarouselSlider.builder(
+                                  itemCount: itemCount,
+                                  itemBuilder: (context, index, realIdx) {
+                                    var item = snapshot.data
+                                        .homepageServiceImgList[index];
+                                    return _carouselItem(
+                                        context,item.imageName,item.organisationName);
+                                  },
+                                  options: CarouselOptions(
+                                    height: 200,
+                                    enlargeCenterPage: true,
+                                    autoPlayCurve: Curves.easeInOut,
+                                  ));
+                            }
+                            return CircularProgressIndicator();
+                          }),
+                      SizedBox(height: 40),  
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Container(
+                          child: Text(
+                            "GAUSHALA",
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.red,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Divider(
+                        color: Colors.red,
+                        thickness: 2,
+                      ),
+                      SizedBox(height: 10),
+                      FutureBuilder<Gs>(
+                          future: _gsModel,
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              var itemCount = snapshot
+                                  .data.homepageServiceImgList.length;
+                              return CarouselSlider.builder(
+                                  itemCount: itemCount,
+                                  itemBuilder: (context, index, realIdx) {
+                                    var item = snapshot.data
+                                        .homepageServiceImgList[index];
+                                    return _carouselItem(
+                                        context,item.imageName,item.organisationName);
+                                  },
+                                  options: CarouselOptions(
+                                    height: 200,
+                                    enlargeCenterPage: true,
+                                    autoPlayCurve: Curves.easeInOut,
+                                  ));
+                            }
+                            return CircularProgressIndicator();
+                          }),
+                      SizedBox(height: 40),  
                     ],
                   )
                 : Column(children: [
@@ -252,7 +457,7 @@ class _HomePageState extends State<HomePage> {
       drawer: MyDrawer(),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          myText = _nameController.text;
+          Navigator.pushReplacementNamed(context, "/home");
           setState(() {});
         },
         child: Icon(Icons.refresh),
