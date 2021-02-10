@@ -1,3 +1,4 @@
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:sanatan_dharam/utils/Constants.dart';
 import 'package:carousel_pro/carousel_pro.dart';
@@ -6,6 +7,37 @@ import 'package:carousel_slider/carousel_slider.dart';
 import '../drawer.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+
+// Future<Temples> fetchTemples() async {
+//   final response =
+//       await http.get(Uri.https('jsonplaceholder.typicode.com', 'albums/1'));
+
+//   if (response.statusCode == 200) {
+//     // If the server did return a 200 OK response,
+//     // then parse the JSON.
+//     return Temples.fromJson(jsonDecode(response.body));
+//   } else {
+//     // If the server did not return a 200 OK response,
+//     // then throw an exception.
+//     throw Exception('Failed to load album');
+//   }
+// }
+
+// class Temples {
+//   final int userId;
+//   final int id;
+//   final String title;
+
+//   Temples({this.userId, this.id, this.title});
+
+//   factory Temples.fromJson(Map<String, dynamic> json) {
+//     return Temples(
+//       userId: json['userId'],
+//       id: json['id'],
+//       title: json['title'],
+//     );
+//   }
+// }
 
 class HomePage extends StatefulWidget {
   @override
@@ -20,10 +52,21 @@ class _HomePageState extends State<HomePage> {
   List homepageBanners = [];
   int index = 0;
 
+  // Future<Temples> futureTemples;
+
   @override
   void initState() {
     super.initState();
-    getData();
+    //print(_checkInternetConnectivity());
+    _checkInternetConnectivity().then((network) {
+      if (network != null && network) {
+        getData();
+      } else {
+        _showDialog("No Internet", "You're not connected to any network.");
+      }
+    });
+    //futureTemples = fetchTemples();
+    //print(futureTemples.toString());
   }
 
   getData() async {
@@ -46,10 +89,36 @@ class _HomePageState extends State<HomePage> {
     ];
 
     //Text(item);
-//
     //data = data['homepageTempledetailModels'];
     //print(data);
     setState(() {});
+  }
+
+  _showDialog(title, text) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text(title),
+            content: Text(text),
+            actions: <Widget>[
+              FlatButton(
+                child: Text("OK"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              )
+            ],
+          );
+        });
+  }
+
+  Future<bool> _checkInternetConnectivity() async {
+    var result = await Connectivity().checkConnectivity();
+    if (result == ConnectivityResult.none) {
+      return false;
+    }
+    return true;
   }
 
   @override
@@ -62,8 +131,9 @@ class _HomePageState extends State<HomePage> {
           IconButton(
               icon: Icon(Icons.exit_to_app),
               onPressed: () {
-                Constants.prefs.setBool("loggedin", false);
-                Navigator.pushReplacementNamed(context, "/login");
+                //Constants.prefs.setBool("loggedin", false);
+                //Navigator.pushReplacementNamed(context, "/login");
+                _checkInternetConnectivity();
               })
         ],
       ),
@@ -110,13 +180,16 @@ class _HomePageState extends State<HomePage> {
                       SizedBox(height: 10),
                       CarouselSlider(
                           items: [
-                            _carouselItem(context,
+                            _carouselItem(
+                                context,
                                 "https://www.shrisanatandharam.com/FileUpload/AD140BEB-AA50-47E5-BDF8-CBA57EEE2BE7.jpeg",
                                 "Temple Name"),
-                            _carouselItem(context,
+                            _carouselItem(
+                                context,
                                 "https://www.shrisanatandharam.com/FileUpload/11F0762D-BE9E-423F-A5CC-2FF369E05456.jpeg",
                                 "Temple Name"),
-                            _carouselItem(context,
+                            _carouselItem(
+                                context,
                                 "https://www.shrisanatandharam.com/FileUpload/F5F0178A-4177-4B3D-B76B-894351B1E02D.jpeg",
                                 "Temple Name"),
                           ],
@@ -146,13 +219,16 @@ class _HomePageState extends State<HomePage> {
                       SizedBox(height: 10),
                       CarouselSlider(
                           items: [
-                            _carouselItem(context,
+                            _carouselItem(
+                                context,
                                 "https://www.shrisanatandharam.com/FileUpload/AD140BEB-AA50-47E5-BDF8-CBA57EEE2BE7.jpeg",
                                 "Temple Name"),
-                            _carouselItem(context,
+                            _carouselItem(
+                                context,
                                 "https://www.shrisanatandharam.com/FileUpload/11F0762D-BE9E-423F-A5CC-2FF369E05456.jpeg",
                                 "Temple Name"),
-                            _carouselItem(context,
+                            _carouselItem(
+                                context,
                                 "https://www.shrisanatandharam.com/FileUpload/F5F0178A-4177-4B3D-B76B-894351B1E02D.jpeg",
                                 "Temple Name"),
                           ],
@@ -187,9 +263,9 @@ class _HomePageState extends State<HomePage> {
 
 Widget _carouselItem(context, String imgPath, String title) {
   return InkWell(
-    onTap: () { 
-        print("Click event on Container"); 
-        Navigator.pushReplacementNamed(context, "/details");
+    onTap: () {
+      print("Click event on Container");
+      Navigator.pushReplacementNamed(context, "/details");
     },
     child: Stack(
       children: [
