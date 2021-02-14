@@ -4,31 +4,58 @@ class MyDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            UserAccountsDrawerHeader(
-              accountName: Text("B Rajesh"),
-              accountEmail: Text("rajeshb@interfinet.com"),
-              currentAccountPicture: CircleAvatar(
-                backgroundImage: NetworkImage(
-                    "https://images.unsplash.com/photo-1497551060073-4c5ab6435f12?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=667&q=80"),
-              ),
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: [
+          Container(
+            child: Padding(
+              padding: EdgeInsets.only(top: 16.0),
+              child: Image.asset('assets/sanatandharam-logo.png'),
             ),
-            ListTile(
-              title: Text("Account"),
-              leading: Icon(Icons.person),
-              subtitle: Text("Personal Details"),
-              trailing: Icon(Icons.edit),
-            ),
-            ListTile(
-              title: Text("Email"),
-              leading: Icon(Icons.email),
-              subtitle: Text("rajeshb@interfinet.com"),
-              trailing: Icon(Icons.send),
-            ),
-          ],
-        ),
-      );
+            color: Colors.red,
+            height: 150,
+          ),
+          ListTile(
+            title: Text("HOME"),
+            leading: Icon(Icons.arrow_forward),
+            onTap: (){
+              Navigator.pushReplacementNamed(context, "/home");
+            },
+          ),
+          ListTile(
+            title: Text("SDP SABHA"),
+            leading: Icon(Icons.arrow_forward),
+          ),
+          ListTile(
+            title: Text("TEMPLES"),
+            leading: Icon(Icons.arrow_forward),
+          ),
+          ListTile(
+            title: Text("PANCHANG"),
+            leading: Icon(Icons.arrow_forward),
+          ),
+          ListTile(
+            title: Text("KATHA/KIRTAN"),
+            leading: Icon(Icons.arrow_forward),
+          ),
+          ListTile(
+            title: Text("MARRIAGE BUREAU"),
+            leading: Icon(Icons.arrow_forward),
+          ),
+          ListTile(
+            title: Text("VEDIC ACHARYA"),
+            leading: Icon(Icons.arrow_forward),
+          ),
+          ListTile(
+            title: Text("GAUSHALA"),
+            leading: Icon(Icons.arrow_forward),
+          ),
+          ListTile(
+            title: Text("MANTRA/CHALISA"),
+            leading: Icon(Icons.arrow_forward),
+          ),
+        ],
+      ),
+    );
   }
 }

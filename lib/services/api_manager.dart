@@ -8,6 +8,7 @@ import 'package:sanatan_dharam/models/homepage_mb.dart';
 import 'package:sanatan_dharam/models/homepage_school.dart';
 import 'package:sanatan_dharam/models/homepage_temples.dart';
 import 'package:sanatan_dharam/models/homepage_gs.dart';
+import 'package:sanatan_dharam/models/temple_model.dart';
 
 // ignore: camel_case_types
 class API_Manager {
@@ -107,7 +108,7 @@ class API_Manager {
     return schoolModel;
   }
 
-    Future<Gs> getGs() async {
+  Future<Gs> getGs() async {
     var client = http.Client();
     var gsModel;
 
@@ -126,4 +127,23 @@ class API_Manager {
     return gsModel;
   }
 
+  Future<Details> getTempleDetails(int id) async {
+    var client = http.Client();
+    var tDetails;
+
+    try {
+      //print(Strings.detailsUrl+id.toString());
+      var response = await client.get(Strings.detailsUrl+id.toString());
+      if (response.statusCode == 200) {
+        var jsonString = response.body;
+        var jsonMap = json.decode(jsonString);
+
+        tDetails = Details.fromJson(jsonMap);
+      }
+    } catch (Exception) {
+      return tDetails;
+    }
+
+    return tDetails;
+  }
 }

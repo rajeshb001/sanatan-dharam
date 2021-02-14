@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:splashscreen/splashscreen.dart';
 import 'package:sanatan_dharam/pages/home_page.dart';
-import 'package:sanatan_dharam/pages/details_page.dart';
 import 'package:sanatan_dharam/utils/Constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -10,7 +9,8 @@ Future main() async {
   Constants.prefs = await SharedPreferences.getInstance();
   runApp(
     MaterialApp(
-      title: 'Awesome App',
+      debugShowCheckedModeBanner: false,
+      title: 'Sanatan Dharam',
       //home:  Constants.prefs.getBool("loggedin") == true ? HomePage() : LoginPage(),
       //home:  HomePage(),
       home: SplashScreen(
@@ -29,7 +29,7 @@ Future main() async {
       theme: ThemeData(primarySwatch: Colors.red),
       routes: {
         "/home": (contxt) => HomePage(),
-        "/details": (contxt) => DetailsPage(),
+        //"/details": (contxt) => DetailsPage(),
       },
     ),
   );

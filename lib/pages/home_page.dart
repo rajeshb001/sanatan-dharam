@@ -3,48 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:sanatan_dharam/models/homepage_gs.dart';
 import 'package:sanatan_dharam/models/homepage_school.dart';
 import 'package:sanatan_dharam/models/homepage_temples.dart';
-import 'package:sanatan_dharam/utils/Constants.dart';
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:sanatan_dharam/models/homepage_live.dart';
 import 'package:sanatan_dharam/models/homepage_mb.dart';
 import 'package:sanatan_dharam/models/homepage_dispensary.dart';
 import 'package:sanatan_dharam/services/api_manager.dart';
+import 'temple_details.dart';
 
 import '../drawer.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
-
-// Future<Temples> fetchTemples() async {
-//   final response =
-//       await http.get(Uri.https('jsonplaceholder.typicode.com', 'albums/1'));
-
-//   if (response.statusCode == 200) {
-//     // If the server did return a 200 OK response,
-//     // then parse the JSON.
-//     return Temples.fromJson(jsonDecode(response.body));
-//   } else {
-//     // If the server did not return a 200 OK response,
-//     // then throw an exception.
-//     throw Exception('Failed to load album');
-//   }
-// }
-
-// class Temples {
-//   final int userId;
-//   final int id;
-//   final String title;
-
-//   Temples({this.userId, this.id, this.title});
-
-//   factory Temples.fromJson(Map<String, dynamic> json) {
-//     return Temples(
-//       userId: json['userId'],
-//       id: json['id'],
-//       title: json['title'],
-//     );
-//   }
-// }
 
 class HomePage extends StatefulWidget {
   @override
@@ -52,10 +19,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  TextEditingController _nameController = TextEditingController();
-  var myText = "Change Me";
-  var url = "https://www.shrisanatandharam.com/api/home/HomePage";
-  var data;
   List homepageBanners = [];
   int index = 0;
 
@@ -91,9 +54,6 @@ class _HomePageState extends State<HomePage> {
   }
 
   getData() async {
-    var res = await http.get(url);
-    data = jsonDecode(res.body);
-
     homepageBanners = [
       Image.network(
         "https://shrisanatandharam.com/SliderImg/shrisanatandharam-slider-img-1.jpg",
@@ -114,7 +74,7 @@ class _HomePageState extends State<HomePage> {
       Image.network(
         "https://shrisanatandharam.com/SliderImg/shrisanatandharam-slider-img-5.jpg",
         fit: BoxFit.cover,
-      ),            
+      ),
     ];
 
     //Text(item);
@@ -156,15 +116,7 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: Colors.grey[200],
       appBar: AppBar(
         title: Text('Shri Sanatan Dharam'),
-        actions: [
-          IconButton(
-              icon: Icon(Icons.exit_to_app),
-              onPressed: () {
-                //Constants.prefs.setBool("loggedin", false);
-                //Navigator.pushReplacementNamed(context, "/login");
-                _checkInternetConnectivity();
-              })
-        ],
+        actions: [],
       ),
       body: Container(
           padding: const EdgeInsets.all(8.0),
@@ -174,7 +126,7 @@ class _HomePageState extends State<HomePage> {
                 repeat: ImageRepeat.repeat),
           ),
           child: SingleChildScrollView(
-            child: data != null
+            child: _welcomeModel != null
                 ? Column(
                     children: [
                       SizedBox(
@@ -222,7 +174,7 @@ class _HomePageState extends State<HomePage> {
                                         context,
                                         "https://www.shrisanatandharam.com/FileUpload/" +
                                             item.imageName,
-                                        item.organisationName);
+                                        item.organisationName, item.organisationId);
                                   },
                                   options: CarouselOptions(
                                     height: 200,
@@ -265,10 +217,10 @@ class _HomePageState extends State<HomePage> {
                               return CarouselSlider.builder(
                                   itemCount: itemCount,
                                   itemBuilder: (context, index, realIdx) {
-                                    var item = snapshot.data
-                                        .homepageTempledetailModels[index];
-                                    return _carouselItem(
-                                        context,item.imageName,item.organisationName);
+                                    var item = snapshot
+                                        .data.homepageTempledetailModels[index];
+                                    return _carouselItem(context,
+                                        item.imageName, item.organisationName, item.organisationId);
                                   },
                                   options: CarouselOptions(
                                     height: 200,
@@ -279,7 +231,7 @@ class _HomePageState extends State<HomePage> {
                             return CircularProgressIndicator();
                           }),
                       SizedBox(height: 40),
-                    Align(
+                      Align(
                         alignment: Alignment.centerLeft,
                         child: Container(
                           child: Text(
@@ -301,15 +253,15 @@ class _HomePageState extends State<HomePage> {
                           future: _marriageModel,
                           builder: (context, snapshot) {
                             if (snapshot.hasData) {
-                              var itemCount = snapshot
-                                  .data.homepageServiceImgList.length;
+                              var itemCount =
+                                  snapshot.data.homepageServiceImgList.length;
                               return CarouselSlider.builder(
                                   itemCount: itemCount,
                                   itemBuilder: (context, index, realIdx) {
-                                    var item = snapshot.data
-                                        .homepageServiceImgList[index];
-                                    return _carouselItem(
-                                        context,item.imageName,item.organisationName);
+                                    var item = snapshot
+                                        .data.homepageServiceImgList[index];
+                                    return _carouselItem(context,
+                                        item.imageName, item.organisationName, item.organisationId);
                                   },
                                   options: CarouselOptions(
                                     height: 200,
@@ -319,7 +271,7 @@ class _HomePageState extends State<HomePage> {
                             }
                             return CircularProgressIndicator();
                           }),
-                      SizedBox(height: 40),    
+                      SizedBox(height: 40),
                       Align(
                         alignment: Alignment.centerLeft,
                         child: Container(
@@ -342,15 +294,15 @@ class _HomePageState extends State<HomePage> {
                           future: _dispensaryModel,
                           builder: (context, snapshot) {
                             if (snapshot.hasData) {
-                              var itemCount = snapshot
-                                  .data.homepageServiceImgList.length;
+                              var itemCount =
+                                  snapshot.data.homepageServiceImgList.length;
                               return CarouselSlider.builder(
                                   itemCount: itemCount,
                                   itemBuilder: (context, index, realIdx) {
-                                    var item = snapshot.data
-                                        .homepageServiceImgList[index];
-                                    return _carouselItem(
-                                        context,item.imageName,item.organisationName);
+                                    var item = snapshot
+                                        .data.homepageServiceImgList[index];
+                                    return _carouselItem(context,
+                                        item.imageName, item.organisationName, item.organisationId);
                                   },
                                   options: CarouselOptions(
                                     height: 200,
@@ -360,7 +312,7 @@ class _HomePageState extends State<HomePage> {
                             }
                             return CircularProgressIndicator();
                           }),
-                      SizedBox(height: 40),                   
+                      SizedBox(height: 40),
                       Align(
                         alignment: Alignment.centerLeft,
                         child: Container(
@@ -383,15 +335,15 @@ class _HomePageState extends State<HomePage> {
                           future: _schoolModel,
                           builder: (context, snapshot) {
                             if (snapshot.hasData) {
-                              var itemCount = snapshot
-                                  .data.homepageServiceImgList.length;
+                              var itemCount =
+                                  snapshot.data.homepageServiceImgList.length;
                               return CarouselSlider.builder(
                                   itemCount: itemCount,
                                   itemBuilder: (context, index, realIdx) {
-                                    var item = snapshot.data
-                                        .homepageServiceImgList[index];
-                                    return _carouselItem(
-                                        context,item.imageName,item.organisationName);
+                                    var item = snapshot
+                                        .data.homepageServiceImgList[index];
+                                    return _carouselItem(context,
+                                        item.imageName, item.organisationName, item.organisationId);
                                   },
                                   options: CarouselOptions(
                                     height: 200,
@@ -401,7 +353,7 @@ class _HomePageState extends State<HomePage> {
                             }
                             return CircularProgressIndicator();
                           }),
-                      SizedBox(height: 40),  
+                      SizedBox(height: 40),
                       Align(
                         alignment: Alignment.centerLeft,
                         child: Container(
@@ -424,15 +376,15 @@ class _HomePageState extends State<HomePage> {
                           future: _gsModel,
                           builder: (context, snapshot) {
                             if (snapshot.hasData) {
-                              var itemCount = snapshot
-                                  .data.homepageServiceImgList.length;
+                              var itemCount =
+                                  snapshot.data.homepageServiceImgList.length;
                               return CarouselSlider.builder(
                                   itemCount: itemCount,
                                   itemBuilder: (context, index, realIdx) {
-                                    var item = snapshot.data
-                                        .homepageServiceImgList[index];
-                                    return _carouselItem(
-                                        context,item.imageName,item.organisationName);
+                                    var item = snapshot
+                                        .data.homepageServiceImgList[index];
+                                    return _carouselItem(context,
+                                        item.imageName, item.organisationName, item.organisationId);
                                   },
                                   options: CarouselOptions(
                                     height: 200,
@@ -442,7 +394,7 @@ class _HomePageState extends State<HomePage> {
                             }
                             return CircularProgressIndicator();
                           }),
-                      SizedBox(height: 40),  
+                      SizedBox(height: 40),
                     ],
                   )
                 : Column(children: [
@@ -466,11 +418,18 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-Widget _carouselItem(context, String imgPath, String title) {
+Widget _carouselItem(context, String imgPath, String title, int orgId) {
   return InkWell(
     onTap: () {
-      print("Click event on Container");
-      Navigator.pushReplacementNamed(context, "/details");
+      //print("Click event on Container");
+      //Navigator.pushReplacementNamed(context, "/details");
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => TemplePage(
+              id: orgId,
+            ),
+          ));
     },
     child: Stack(
       children: [

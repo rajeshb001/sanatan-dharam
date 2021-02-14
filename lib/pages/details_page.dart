@@ -1,35 +1,52 @@
 import 'package:flutter/material.dart';
+import 'package:sanatan_dharam/models/temple_model.dart';
 import 'package:sanatan_dharam/utils/Constants.dart';
-import 'package:carousel_pro/carousel_pro.dart';
-import 'package:carousel_slider/carousel_slider.dart';
+import 'package:sanatan_dharam/services/api_manager.dart';
 
 import '../drawer.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class DetailsPage extends StatefulWidget {
+  final id;
+  DetailsPage({Key key, @required this.id}) : super(key: key);
+
   @override
-  _DetailsPageState createState() => _DetailsPageState();
+  _DetailsPageState createState() => _DetailsPageState(id: this.id);
 }
 
 class _DetailsPageState extends State<DetailsPage> {
-  TextEditingController _nameController = TextEditingController();
-  var myText = "Change Me";
-  var url =
-      "https://www.shrisanatandharam.com/api/home/HomePageDetails?orid=1040";
+  final id;
+  _DetailsPageState({@required this.id});
+  var url = "https://www.shrisanatandharam.com/api/home/HomePageDetails?orid=";
+
   var data;
   List homepageBanners = [];
   int index = 0;
 
+ Future<Details> _tDetailsModel;
+
+  
+ 
+
   @override
   void initState() {
     super.initState();
-    getData();
+    if (this.id != null) {
+      //print(url);
+      _tDetailsModel = API_Manager().getTempleDetails(this.id);
+      //print(_tDetailsModel);
+      //getData();
+    }
   }
 
   getData() async {
-    var res = await http.get(url);
-    data = jsonDecode(res.body);
+    //url += this.id;
+    //url += this.id.toString();
+    //var res = await http.get(url);
+    //data = jsonDecode(res.body);
+    //print(url);
+    //print(this.id);
 
     homepageBanners = [
       Image.network(
@@ -76,14 +93,14 @@ class _DetailsPageState extends State<DetailsPage> {
                 repeat: ImageRepeat.repeat),
           ),
           child: SingleChildScrollView(
-            child: data != null
+            child: _tDetailsModel != null
                 ? Column(
                     children: [
                       SizedBox(
                         height: 35,
                         width: double.infinity,
                         child: Text(
-                          "Hanuman Mandir, Connaught Place",
+                          "text",
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
@@ -156,48 +173,13 @@ class _DetailsPageState extends State<DetailsPage> {
       drawer: MyDrawer(),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          myText = _nameController.text;
+          Navigator.pushReplacementNamed(context, "/details");
           setState(() {});
         },
         child: Icon(Icons.refresh),
       ),
     );
   }
-}
 
-Widget _carouselItem(context, String imgPath, String title) {
-  return InkWell(
-    onTap: () {
-      print("Click event on Container");
-      Navigator.pushReplacementNamed(context, "/details");
-    },
-    child: Stack(
-      children: [
-        Container(
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(12)),
-              image: DecorationImage(
-                  image: NetworkImage(imgPath), fit: BoxFit.cover)),
-        ),
-        Container(
-            height: 30,
-            alignment: Alignment.center,
-            margin: EdgeInsets.only(top: 170.0),
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.centerLeft,
-                end: Alignment.centerRight,
-                colors: <Color>[Colors.red, Colors.orange],
-              ),
-            ),
-            child: Text(
-              title,
-              style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 15.0),
-            )),
-      ],
-    ),
-  );
+
 }
