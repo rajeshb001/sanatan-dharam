@@ -12,5 +12,7 @@ class Strings {
   static String gsUrl =
       'https://shrisanatandharam.com/api/home/HomePageGaushala';     
   static String detailsUrl =
-      'https://www.shrisanatandharam.com/api/home/HomePageDetails?orid=';             
+      'https://www.shrisanatandharam.com/api/home/HomePageDetails?orid=';  
+  static String templeDetailsUrl =
+      'https://www.shrisanatandharam.com/api/home/TempleDetails?orid=';               
 }

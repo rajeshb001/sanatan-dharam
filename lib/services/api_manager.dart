@@ -133,7 +133,7 @@ class API_Manager {
 
     try {
       //print(Strings.detailsUrl+id.toString());
-      var response = await client.get(Strings.detailsUrl+id.toString());
+      var response = await client.get(Strings.templeDetailsUrl+id.toString());
       if (response.statusCode == 200) {
         var jsonString = response.body;
         var jsonMap = json.decode(jsonString);

@@ -12,56 +12,36 @@ class Details {
     Details({
         this.retOut,
         this.status,
-        this.homePageBanners,
-        this.homepageTempledetails,
-        this.organisationServicesList,
+        this.homepageTempledetail,
+        this.organisationServiceList,
+        this.sliderImageList,
     });
 
     String retOut;
     String status;
-    List<HomePageBanner> homePageBanners;
-    HomepageTempledetails homepageTempledetails;
-    List<OrganisationServicesList> organisationServicesList;
+    HomepageTempledetail homepageTempledetail;
+    List<OrganisationServiceList> organisationServiceList;
+    List<SliderImageList> sliderImageList;
 
     factory Details.fromJson(Map<String, dynamic> json) => Details(
         retOut: json["retOut"],
         status: json["status"],
-        homePageBanners: List<HomePageBanner>.from(json["homePageBanners"].map((x) => HomePageBanner.fromJson(x))),
-        homepageTempledetails: HomepageTempledetails.fromJson(json["homepageTempledetails"]),
-        organisationServicesList: List<OrganisationServicesList>.from(json["organisationServicesList"].map((x) => OrganisationServicesList.fromJson(x))),
+        homepageTempledetail: HomepageTempledetail.fromJson(json["homepageTempledetail"]),
+        organisationServiceList: List<OrganisationServiceList>.from(json["organisationServiceList"].map((x) => OrganisationServiceList.fromJson(x))),
+        sliderImageList: List<SliderImageList>.from(json["sliderImageList"].map((x) => SliderImageList.fromJson(x))),
     );
 
     Map<String, dynamic> toJson() => {
         "retOut": retOut,
         "status": status,
-        "homePageBanners": List<dynamic>.from(homePageBanners.map((x) => x.toJson())),
-        "homepageTempledetails": homepageTempledetails.toJson(),
-        "organisationServicesList": List<dynamic>.from(organisationServicesList.map((x) => x.toJson())),
+        "homepageTempledetail": homepageTempledetail.toJson(),
+        "organisationServiceList": List<dynamic>.from(organisationServiceList.map((x) => x.toJson())),
+        "sliderImageList": List<dynamic>.from(sliderImageList.map((x) => x.toJson())),
     };
 }
 
-class HomePageBanner {
-    HomePageBanner({
-        this.imageName,
-        this.imageTitle,
-    });
-
-    String imageName;
-    String imageTitle;
-
-    factory HomePageBanner.fromJson(Map<String, dynamic> json) => HomePageBanner(
-        imageName: json["imageName"],
-        imageTitle: json["imageTitle"],
-    );
-
-    Map<String, dynamic> toJson() => {
-        "imageName": imageName,
-        "imageTitle": imageTitle,
-    };
-}
-
-class HomepageTempledetails {
-    HomepageTempledetails({
+class HomepageTempledetail {
+    HomepageTempledetail({
         this.organisationId,
         this.organisationType,
         this.liveStreamType,
@@ -91,7 +71,7 @@ class HomepageTempledetails {
     dynamic liveStreamUrl;
     bool status;
 
-    factory HomepageTempledetails.fromJson(Map<String, dynamic> json) => HomepageTempledetails(
+    factory HomepageTempledetail.fromJson(Map<String, dynamic> json) => HomepageTempledetail(
         organisationId: json["organisationId"],
         organisationType: json["organisationType"],
         liveStreamType: json["liveStreamType"],
@@ -124,8 +104,8 @@ class HomepageTempledetails {
     };
 }
 
-class OrganisationServicesList {
-    OrganisationServicesList({
+class OrganisationServiceList {
+    OrganisationServiceList({
         this.orgServiceId,
         this.orgServiceName,
     });
@@ -133,7 +113,7 @@ class OrganisationServicesList {
     int orgServiceId;
     String orgServiceName;
 
-    factory OrganisationServicesList.fromJson(Map<String, dynamic> json) => OrganisationServicesList(
+    factory OrganisationServiceList.fromJson(Map<String, dynamic> json) => OrganisationServiceList(
         orgServiceId: json["orgServiceID"],
         orgServiceName: json["orgServiceName"],
     );
@@ -141,5 +121,25 @@ class OrganisationServicesList {
     Map<String, dynamic> toJson() => {
         "orgServiceID": orgServiceId,
         "orgServiceName": orgServiceName,
+    };
+}
+
+class SliderImageList {
+    SliderImageList({
+        this.imageName,
+        this.imageTitle,
+    });
+
+    String imageName;
+    String imageTitle;
+
+    factory SliderImageList.fromJson(Map<String, dynamic> json) => SliderImageList(
+        imageName: json["imageName"],
+        imageTitle: json["imageTitle"],
+    );
+
+    Map<String, dynamic> toJson() => {
+        "imageName": imageName,
+        "imageTitle": imageTitle,
     };
 }

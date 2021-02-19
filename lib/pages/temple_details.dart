@@ -1,9 +1,9 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
-import 'package:carousel_pro/carousel_pro.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:sanatan_dharam/models/temple_model.dart';
 import 'package:sanatan_dharam/services/api_manager.dart';
+import 'package:expandable_text/expandable_text.dart';
 
 import '../drawer.dart';
 
@@ -127,16 +127,16 @@ class _TemplePageState extends State<TemplePage> {
                           builder: (context, snapshot) {
                             if (snapshot.hasData) {
                               var itemCount =
-                                  snapshot.data.homePageBanners.length;
+                                  snapshot.data.sliderImageList.length;
                               var serviceCount =
-                                  snapshot.data.organisationServicesList.length;
+                                  snapshot.data.organisationServiceList.length;
                               return Column(
                                 children: [
                                   SizedBox(
                                     height: 50,
                                     width: double.infinity,
                                     child: Text(
-                                      snapshot.data.homepageTempledetails
+                                      snapshot.data.homepageTempledetail
                                           .organisationName,
                                       style: TextStyle(
                                         fontSize: 20,
@@ -149,7 +149,7 @@ class _TemplePageState extends State<TemplePage> {
                                       itemCount: itemCount,
                                       itemBuilder: (context, index, realIdx) {
                                         var item = snapshot
-                                            .data.homePageBanners[index];
+                                            .data.sliderImageList[index];
                                         return _carouselItem(context,
                                             item.imageName, item.imageTitle);
                                       },
@@ -173,9 +173,13 @@ class _TemplePageState extends State<TemplePage> {
                                   ),
                                   SizedBox(
                                     width: double.infinity,
-                                    child: Text(
+                                    child: ExpandableText(
                                       snapshot
-                                          .data.homepageTempledetails.fullDesc,
+                                          .data.homepageTempledetail.fullDesc,
+                                      expandText: 'show more',
+                                      maxLines: 6,
+                                      collapseText: '...show less',
+                                      linkColor: Colors.red,
                                       style: TextStyle(
                                         fontSize: 18,
                                         fontWeight: FontWeight.normal,
@@ -192,8 +196,7 @@ class _TemplePageState extends State<TemplePage> {
                                           itemCount: serviceCount,
                                           itemBuilder: (context, index) {
                                             final _serviceItem = snapshot.data
-                                                    .organisationServicesList[
-                                                index];
+                                                .organisationServiceList[index];
                                             return RaisedButton(
                                               onPressed: () {},
                                               textColor: Colors.white,
@@ -222,7 +225,6 @@ class _TemplePageState extends State<TemplePage> {
                                             );
                                           })
                                       : Text("No Services Available"),
-                                  
                                 ],
                               );
 
@@ -231,7 +233,14 @@ class _TemplePageState extends State<TemplePage> {
                               // );
 
                             }
-                            return CircularProgressIndicator();
+                            return Column(children: [
+                              SizedBox(
+                                height: 400,
+                                child: Center(
+                                  child: CircularProgressIndicator(),
+                                ),
+                              ),
+                            ]);
                           }),
                       SizedBox(height: 40),
                     ],
@@ -260,7 +269,6 @@ Widget _carouselItem(context, String imgPath, String title) {
               image: DecorationImage(
                   image: NetworkImage(imgPath), fit: BoxFit.cover)),
         ),
-        
       ],
     ),
   );

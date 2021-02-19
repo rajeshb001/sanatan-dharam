@@ -20,6 +20,9 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List homepageBanners = [];
+  List panchangBanners = [];
+  List mantraBanners = [];
+  List vedicBanners = [];
   int index = 0;
 
   Future<Welcome> _welcomeModel;
@@ -77,6 +80,109 @@ class _HomePageState extends State<HomePage> {
       ),
     ];
 
+    panchangBanners = [
+      {
+        'imagePath':
+            "https://shrisanatandharam.com/front-assets/img/panchang/1.jpg",
+        'title': 'Daily',
+        'id': 1,
+      },
+      {
+        'imagePath':
+            "https://shrisanatandharam.com/front-assets/img/panchang/2.jpg",
+        'title': 'Ekadashi',
+        'id': 2,
+      },
+      {
+        'imagePath':
+            "https://shrisanatandharam.com/front-assets/img/panchang/3.jpg",
+        'title': 'Purnima',
+        'id': 3,
+      },
+      {
+        'imagePath':
+            "https://shrisanatandharam.com/front-assets/img/panchang/4.jpg",
+        'title': 'Amavasya',
+        'id': 4,
+      },
+      {
+        'imagePath':
+            "https://shrisanatandharam.com/front-assets/img/panchang/5.jpg",
+        'title': 'UpcommingFestival',
+        'id': 5,
+      },
+    ];
+
+    mantraBanners = [
+      {
+        'imagePath':
+            "https://shrisanatandharam.com/front-assets/img/1.jpg",
+        'title': 'Chalisha',
+        'id': 1,
+      },
+      {
+        'imagePath':
+            "https://shrisanatandharam.com/front-assets/img/2.jpg",
+        'title': 'Arati',
+        'id': 2,
+      },
+      {
+        'imagePath':
+            "https://shrisanatandharam.com/front-assets/img/3.jpg",
+        'title': 'Mantra',
+        'id': 3,
+      },
+      {
+        'imagePath':
+            "https://shrisanatandharam.com/front-assets/img/4.jpg",
+        'title': 'Stotra',
+        'id': 4,
+      },
+      {
+        'imagePath':
+            "https://shrisanatandharam.com/front-assets/img/5.jpg",
+        'title': 'Granth',
+        'id': 5,
+      },
+    ];
+    vedicBanners = [
+      {
+        'imagePath':
+            "https://shrisanatandharam.com/front-assets/img/vedic/1.jpg",
+        'title': 'Marriage',
+        'id': 1,
+      },
+      {
+        'imagePath':
+            "https://shrisanatandharam.com/front-assets/img/vedic/2.jpg",
+        'title': 'Griha Pravesh',
+        'id': 2,
+      },
+      {
+        'imagePath':
+            "https://shrisanatandharam.com/front-assets/img/vedic/3.jpg",
+        'title': 'Vastu Pooja',
+        'id': 3,
+      },
+      {
+        'imagePath':
+            "https://shrisanatandharam.com/front-assets/img/vedic/4.jpg",
+        'title': 'Navagraha Pooja',
+        'id': 4,
+      },
+      {
+        'imagePath':
+            "https://shrisanatandharam.com/front-assets/img/vedic/5.jpg",
+        'title': 'Rudrabhishek Pooja',
+        'id': 5,
+      },
+            {
+        'imagePath':
+            "https://shrisanatandharam.com/front-assets/img/vedic/6.jpg",
+        'title': 'Others',
+        'id': 6,
+      },
+    ];
     //Text(item);
     //data = data['homepageTempledetailModels'];
     //print(data);
@@ -174,7 +280,8 @@ class _HomePageState extends State<HomePage> {
                                         context,
                                         "https://www.shrisanatandharam.com/FileUpload/" +
                                             item.imageName,
-                                        item.organisationName, item.organisationId);
+                                        item.organisationName,
+                                        item.organisationId);
                                   },
                                   options: CarouselOptions(
                                     height: 200,
@@ -219,8 +326,11 @@ class _HomePageState extends State<HomePage> {
                                   itemBuilder: (context, index, realIdx) {
                                     var item = snapshot
                                         .data.homepageTempledetailModels[index];
-                                    return _carouselItem(context,
-                                        item.imageName, item.organisationName, item.organisationId);
+                                    return _carouselItem(
+                                        context,
+                                        item.imageName,
+                                        item.organisationName,
+                                        item.organisationId);
                                   },
                                   options: CarouselOptions(
                                     height: 200,
@@ -230,6 +340,38 @@ class _HomePageState extends State<HomePage> {
                             }
                             return CircularProgressIndicator();
                           }),
+                      SizedBox(height: 40),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Container(
+                          child: Text(
+                            "PANCHANG",
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.red,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Divider(
+                        color: Colors.red,
+                        thickness: 2,
+                      ),
+                      SizedBox(height: 10),
+                      CarouselSlider(
+                          items: panchangBanners
+                              .map((item) => _carouselItem(
+                                  context,
+                                  item['imagePath'],
+                                  item['title'],
+                                  item['id']))
+                              .toList(),
+                          options: CarouselOptions(
+                            height: 200,
+                            enlargeCenterPage: true,
+                            autoPlayCurve: Curves.easeInOut,
+                          )),
                       SizedBox(height: 40),
                       Align(
                         alignment: Alignment.centerLeft,
@@ -260,8 +402,11 @@ class _HomePageState extends State<HomePage> {
                                   itemBuilder: (context, index, realIdx) {
                                     var item = snapshot
                                         .data.homepageServiceImgList[index];
-                                    return _carouselItem(context,
-                                        item.imageName, item.organisationName, item.organisationId);
+                                    return _carouselItem(
+                                        context,
+                                        item.imageName,
+                                        item.organisationName,
+                                        item.organisationId);
                                   },
                                   options: CarouselOptions(
                                     height: 200,
@@ -301,8 +446,11 @@ class _HomePageState extends State<HomePage> {
                                   itemBuilder: (context, index, realIdx) {
                                     var item = snapshot
                                         .data.homepageServiceImgList[index];
-                                    return _carouselItem(context,
-                                        item.imageName, item.organisationName, item.organisationId);
+                                    return _carouselItem(
+                                        context,
+                                        item.imageName,
+                                        item.organisationName,
+                                        item.organisationId);
                                   },
                                   options: CarouselOptions(
                                     height: 200,
@@ -342,8 +490,11 @@ class _HomePageState extends State<HomePage> {
                                   itemBuilder: (context, index, realIdx) {
                                     var item = snapshot
                                         .data.homepageServiceImgList[index];
-                                    return _carouselItem(context,
-                                        item.imageName, item.organisationName, item.organisationId);
+                                    return _carouselItem(
+                                        context,
+                                        item.imageName,
+                                        item.organisationName,
+                                        item.organisationId);
                                   },
                                   options: CarouselOptions(
                                     height: 200,
@@ -383,8 +534,11 @@ class _HomePageState extends State<HomePage> {
                                   itemBuilder: (context, index, realIdx) {
                                     var item = snapshot
                                         .data.homepageServiceImgList[index];
-                                    return _carouselItem(context,
-                                        item.imageName, item.organisationName, item.organisationId);
+                                    return _carouselItem(
+                                        context,
+                                        item.imageName,
+                                        item.organisationName,
+                                        item.organisationId);
                                   },
                                   options: CarouselOptions(
                                     height: 200,
@@ -394,6 +548,70 @@ class _HomePageState extends State<HomePage> {
                             }
                             return CircularProgressIndicator();
                           }),
+                      SizedBox(height: 40),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Container(
+                          child: Text(
+                            "MANTRA / CHALISA",
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.red,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Divider(
+                        color: Colors.red,
+                        thickness: 2,
+                      ),
+                      SizedBox(height: 10),
+                      CarouselSlider(
+                          items: mantraBanners
+                              .map((item) => _carouselItem(
+                                  context,
+                                  item['imagePath'],
+                                  item['title'],
+                                  item['id']))
+                              .toList(),
+                          options: CarouselOptions(
+                            height: 200,
+                            enlargeCenterPage: true,
+                            autoPlayCurve: Curves.easeInOut,
+                          )),
+                      SizedBox(height: 40),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Container(
+                          child: Text(
+                            "VEDIC ACHARYA",
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.red,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Divider(
+                        color: Colors.red,
+                        thickness: 2,
+                      ),
+                      SizedBox(height: 10),
+                      CarouselSlider(
+                          items: vedicBanners
+                              .map((item) => _carouselItem(
+                                  context,
+                                  item['imagePath'],
+                                  item['title'],
+                                  item['id']))
+                              .toList(),
+                          options: CarouselOptions(
+                            height: 200,
+                            enlargeCenterPage: true,
+                            autoPlayCurve: Curves.easeInOut,
+                          )),
                       SizedBox(height: 40),
                     ],
                   )
