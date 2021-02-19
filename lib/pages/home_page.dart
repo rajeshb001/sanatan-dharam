@@ -8,6 +8,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:sanatan_dharam/models/homepage_live.dart';
 import 'package:sanatan_dharam/models/homepage_mb.dart';
 import 'package:sanatan_dharam/models/homepage_dispensary.dart';
+import 'package:sanatan_dharam/models/homepage_kk.dart';
 import 'package:sanatan_dharam/services/api_manager.dart';
 import 'temple_details.dart';
 
@@ -31,6 +32,7 @@ class _HomePageState extends State<HomePage> {
   Future<Dispensary> _dispensaryModel;
   Future<School> _schoolModel;
   Future<Gs> _gsModel;
+  Future<KathaKirtan> _kkModel;
 
   // Future<Temples> futureTemples;
 
@@ -46,6 +48,7 @@ class _HomePageState extends State<HomePage> {
         _dispensaryModel = API_Manager().getDispensary();
         _schoolModel = API_Manager().getSchool();
         _gsModel = API_Manager().getGs();
+        _kkModel = API_Manager().getKirtans();
         getData();
         //print(_welcomeModel);
       } else {
@@ -372,6 +375,50 @@ class _HomePageState extends State<HomePage> {
                             enlargeCenterPage: true,
                             autoPlayCurve: Curves.easeInOut,
                           )),
+                      SizedBox(height: 40),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Container(
+                          child: Text(
+                            "KATHA/KIRTAN",
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.red,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Divider(
+                        color: Colors.red,
+                        thickness: 2,
+                      ),
+                      SizedBox(height: 10),
+                      FutureBuilder<KathaKirtan>(
+                          future: _kkModel,
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              var itemCount =
+                                  snapshot.data.kathakirtanns.length;
+                              return CarouselSlider.builder(
+                                  itemCount: itemCount,
+                                  itemBuilder: (context, index, realIdx) {
+                                    var item = snapshot
+                                        .data.kathakirtanns[index];
+                                    return _carouselItem(
+                                        context,
+                                        item.imgName,
+                                        item.title,
+                                        item.id);
+                                  },
+                                  options: CarouselOptions(
+                                    height: 200,
+                                    enlargeCenterPage: true,
+                                    autoPlayCurve: Curves.easeInOut,
+                                  ));
+                            }
+                            return CircularProgressIndicator();
+                          }),
                       SizedBox(height: 40),
                       Align(
                         alignment: Alignment.centerLeft,

@@ -25,10 +25,16 @@ class MyDrawer extends StatelessWidget {
           ListTile(
             title: Text("SDP SABHA"),
             leading: Icon(Icons.arrow_forward),
+            onTap: (){
+              Navigator.pushReplacementNamed(context, "/temples");
+            },
           ),
           ListTile(
             title: Text("TEMPLES"),
             leading: Icon(Icons.arrow_forward),
+            onTap: (){
+              Navigator.pushReplacementNamed(context, "/temples");
+            },
           ),
           ListTile(
             title: Text("PANCHANG"),

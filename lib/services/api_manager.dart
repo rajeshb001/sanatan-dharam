@@ -9,6 +9,7 @@ import 'package:sanatan_dharam/models/homepage_school.dart';
 import 'package:sanatan_dharam/models/homepage_temples.dart';
 import 'package:sanatan_dharam/models/homepage_gs.dart';
 import 'package:sanatan_dharam/models/temple_model.dart';
+import 'package:sanatan_dharam/models/homepage_kk.dart';
 
 // ignore: camel_case_types
 class API_Manager {
@@ -125,6 +126,25 @@ class API_Manager {
     }
 
     return gsModel;
+  }
+
+  Future<KathaKirtan> getKirtans() async {
+    var client = http.Client();
+    var kkModel;
+
+    try {
+      var response = await client.get(Strings.kkUrl);
+      if (response.statusCode == 200) {
+        var jsonString = response.body;
+        var jsonMap = json.decode(jsonString);
+
+        kkModel = KathaKirtan.fromJson(jsonMap);
+      }
+    } catch (Exception) {
+      return kkModel;
+    }
+
+    return kkModel;
   }
 
   Future<Details> getTempleDetails(int id) async {

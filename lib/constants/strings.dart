@@ -11,6 +11,8 @@ class Strings {
       'https://shrisanatandharam.com/api/home/HomePageSchoolInstitution';    
   static String gsUrl =
       'https://shrisanatandharam.com/api/home/HomePageGaushala';     
+  static String kkUrl =
+      'https://www.shrisanatandharam.com/api/home/BindKathaKirtan';     
   static String detailsUrl =
       'https://www.shrisanatandharam.com/api/home/HomePageDetails?orid=';  
   static String templeDetailsUrl =

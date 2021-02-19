@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:splashscreen/splashscreen.dart';
 import 'package:sanatan_dharam/pages/home_page.dart';
+import 'package:sanatan_dharam/pages/temples.dart';
 import 'package:sanatan_dharam/utils/Constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -29,6 +30,7 @@ Future main() async {
       theme: ThemeData(primarySwatch: Colors.red),
       routes: {
         "/home": (contxt) => HomePage(),
+        "/temples": (contxt) => TemplesPage(),
         //"/details": (contxt) => DetailsPage(),
       },
     ),

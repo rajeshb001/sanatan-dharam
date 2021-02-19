@@ -156,6 +156,7 @@ class _TemplePageState extends State<TemplePage> {
                                       options: CarouselOptions(
                                         height: 200,
                                         enlargeCenterPage: true,
+                                        autoPlay: true,
                                         autoPlayCurve: Curves.easeInOut,
                                       )),
                                   SizedBox(height: 20),
