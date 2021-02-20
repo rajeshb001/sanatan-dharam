@@ -1,20 +1,20 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
-import 'package:sanatan_dharam/models/homepage_temples.dart';
+import 'package:sanatan_dharam/models/homepage_mb.dart';
 import 'package:sanatan_dharam/services/api_manager.dart';
 import 'temple_details.dart';
 
 import '../drawer.dart';
 
-class TemplesPage extends StatefulWidget {
+class MarriagePage extends StatefulWidget {
   @override
-  _TemplesPageState createState() => _TemplesPageState();
+  _MarriagePageState createState() => _MarriagePageState();
 }
 
-class _TemplesPageState extends State<TemplesPage> {
+class _MarriagePageState extends State<MarriagePage> {
   int index = 0;
 
-  Future<Temples> _templesModel;
+  Future<Marriage> _marriageModel;
 
   // Future<Temples> futureTemples;
 
@@ -24,7 +24,7 @@ class _TemplesPageState extends State<TemplesPage> {
     //print(_checkInternetConnectivity());
     _checkInternetConnectivity().then((network) {
       if (network != null && network) {
-        _templesModel = API_Manager().getTemples();
+        _marriageModel = API_Manager().getMarriages();
         getData();
         //print(_welcomeModel);
       } else {
@@ -74,7 +74,7 @@ class _TemplesPageState extends State<TemplesPage> {
     return Scaffold(
       backgroundColor: Colors.grey[200],
       appBar: AppBar(
-        title: Text('Temples'),
+        title: Text('Marriage Bureau'),
         actions: [],
       ),
       body: Container(
@@ -85,22 +85,22 @@ class _TemplesPageState extends State<TemplesPage> {
                 repeat: ImageRepeat.repeat),
           ),
           child: SingleChildScrollView(
-            child: _templesModel != null
+            child: _marriageModel != null
                 ? Column(
                     children: [
-                      FutureBuilder<Temples>(
-                          future: _templesModel,
+                      FutureBuilder<Marriage>(
+                          future: _marriageModel,
                           builder: (context, snapshot) {
                             if (snapshot.hasData) {
-                              var itemCount = snapshot
-                                  .data.homepageTempledetailModels.length;
+                              var itemCount =
+                                  snapshot.data.homepageServiceImgList.length;
                               return ListView.builder(
                                   shrinkWrap: true,
                                   physics: ScrollPhysics(),
                                   itemCount: itemCount,
                                   itemBuilder: (context, index) {
                                     var item = snapshot
-                                        .data.homepageTempledetailModels[index];
+                                        .data.homepageServiceImgList[index];
                                     return _carouselItem(
                                         context,
                                         item.imageName,

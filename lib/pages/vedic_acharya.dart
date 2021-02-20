@@ -1,20 +1,17 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
-import 'package:sanatan_dharam/models/homepage_temples.dart';
-import 'package:sanatan_dharam/services/api_manager.dart';
 import 'temple_details.dart';
 
 import '../drawer.dart';
 
-class TemplesPage extends StatefulWidget {
+class VedicPage extends StatefulWidget {
   @override
-  _TemplesPageState createState() => _TemplesPageState();
+  _VedicState createState() => _VedicState();
 }
 
-class _TemplesPageState extends State<TemplesPage> {
+class _VedicState extends State<VedicPage> {
   int index = 0;
-
-  Future<Temples> _templesModel;
+  List vedicBanners = [];
 
   // Future<Temples> futureTemples;
 
@@ -24,7 +21,6 @@ class _TemplesPageState extends State<TemplesPage> {
     //print(_checkInternetConnectivity());
     _checkInternetConnectivity().then((network) {
       if (network != null && network) {
-        _templesModel = API_Manager().getTemples();
         getData();
         //print(_welcomeModel);
       } else {
@@ -39,6 +35,46 @@ class _TemplesPageState extends State<TemplesPage> {
     //Text(item);
     //data = data['homepageTempledetailModels'];
     //print(data);
+
+    vedicBanners = [
+      {
+        'imagePath':
+            "https://shrisanatandharam.com/front-assets/img/vedic/1.jpg",
+        'title': 'Marriage',
+        'id': 1,
+      },
+      {
+        'imagePath':
+            "https://shrisanatandharam.com/front-assets/img/vedic/2.jpg",
+        'title': 'Griha Pravesh',
+        'id': 2,
+      },
+      {
+        'imagePath':
+            "https://shrisanatandharam.com/front-assets/img/vedic/3.jpg",
+        'title': 'Vastu Pooja',
+        'id': 3,
+      },
+      {
+        'imagePath':
+            "https://shrisanatandharam.com/front-assets/img/vedic/4.jpg",
+        'title': 'Navagraha Pooja',
+        'id': 4,
+      },
+      {
+        'imagePath':
+            "https://shrisanatandharam.com/front-assets/img/vedic/5.jpg",
+        'title': 'Rudrabhishek Pooja',
+        'id': 5,
+      },
+      {
+        'imagePath':
+            "https://shrisanatandharam.com/front-assets/img/vedic/6.jpg",
+        'title': 'Others',
+        'id': 6,
+      },
+    ];
+
     setState(() {});
   }
 
@@ -74,7 +110,7 @@ class _TemplesPageState extends State<TemplesPage> {
     return Scaffold(
       backgroundColor: Colors.grey[200],
       appBar: AppBar(
-        title: Text('Temples'),
+        title: Text('Vedic Acharya'),
         actions: [],
       ),
       body: Container(
@@ -85,38 +121,17 @@ class _TemplesPageState extends State<TemplesPage> {
                 repeat: ImageRepeat.repeat),
           ),
           child: SingleChildScrollView(
-            child: _templesModel != null
+            child: vedicBanners != null
                 ? Column(
                     children: [
-                      FutureBuilder<Temples>(
-                          future: _templesModel,
-                          builder: (context, snapshot) {
-                            if (snapshot.hasData) {
-                              var itemCount = snapshot
-                                  .data.homepageTempledetailModels.length;
-                              return ListView.builder(
-                                  shrinkWrap: true,
-                                  physics: ScrollPhysics(),
-                                  itemCount: itemCount,
-                                  itemBuilder: (context, index) {
-                                    var item = snapshot
-                                        .data.homepageTempledetailModels[index];
-                                    return _carouselItem(
-                                        context,
-                                        item.imageName,
-                                        item.organisationName,
-                                        item.organisationId);
-                                  });
-                            }
-                            return Column(children: [
-                              SizedBox(
-                                height: 400,
-                                child: Center(
-                                  child: CircularProgressIndicator(),
-                                ),
-                              ),
-                            ]);
-                          }),
+                      ListView(
+                        shrinkWrap: true,
+                        physics: ScrollPhysics(),
+                        children: vedicBanners
+                            .map((item) => _carouselItem(context,
+                                item['imagePath'], item['title'], item['id']))
+                            .toList(),
+                      ),
                       SizedBox(height: 40),
                     ],
                   )

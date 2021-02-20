@@ -1,20 +1,20 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
-import 'package:sanatan_dharam/models/homepage_temples.dart';
+import 'package:sanatan_dharam/models/homepage_kk.dart';
 import 'package:sanatan_dharam/services/api_manager.dart';
 import 'temple_details.dart';
 
 import '../drawer.dart';
 
-class TemplesPage extends StatefulWidget {
+class KirtanPage extends StatefulWidget {
   @override
-  _TemplesPageState createState() => _TemplesPageState();
+  _KirtanPageState createState() => _KirtanPageState();
 }
 
-class _TemplesPageState extends State<TemplesPage> {
+class _KirtanPageState extends State<KirtanPage> {
   int index = 0;
 
-  Future<Temples> _templesModel;
+  Future<KathaKirtan> _kkModel;
 
   // Future<Temples> futureTemples;
 
@@ -24,7 +24,7 @@ class _TemplesPageState extends State<TemplesPage> {
     //print(_checkInternetConnectivity());
     _checkInternetConnectivity().then((network) {
       if (network != null && network) {
-        _templesModel = API_Manager().getTemples();
+        _kkModel = API_Manager().getKirtans();
         getData();
         //print(_welcomeModel);
       } else {
@@ -74,7 +74,7 @@ class _TemplesPageState extends State<TemplesPage> {
     return Scaffold(
       backgroundColor: Colors.grey[200],
       appBar: AppBar(
-        title: Text('Temples'),
+        title: Text('Katha/Kirtan'),
         actions: [],
       ),
       body: Container(
@@ -85,27 +85,27 @@ class _TemplesPageState extends State<TemplesPage> {
                 repeat: ImageRepeat.repeat),
           ),
           child: SingleChildScrollView(
-            child: _templesModel != null
+            child: _kkModel != null
                 ? Column(
                     children: [
-                      FutureBuilder<Temples>(
-                          future: _templesModel,
+                      FutureBuilder<KathaKirtan>(
+                          future: _kkModel,
                           builder: (context, snapshot) {
                             if (snapshot.hasData) {
-                              var itemCount = snapshot
-                                  .data.homepageTempledetailModels.length;
+                              var itemCount =
+                                  snapshot.data.kathakirtanns.length;
                               return ListView.builder(
                                   shrinkWrap: true,
                                   physics: ScrollPhysics(),
                                   itemCount: itemCount,
                                   itemBuilder: (context, index) {
                                     var item = snapshot
-                                        .data.homepageTempledetailModels[index];
+                                        .data.kathakirtanns[index];
                                     return _carouselItem(
                                         context,
-                                        item.imageName,
-                                        item.organisationName,
-                                        item.organisationId);
+                                        item.imgName,
+                                        item.title,
+                                        item.id);
                                   });
                             }
                             return Column(children: [

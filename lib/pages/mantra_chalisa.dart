@@ -1,20 +1,17 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
-import 'package:sanatan_dharam/models/homepage_temples.dart';
-import 'package:sanatan_dharam/services/api_manager.dart';
 import 'temple_details.dart';
 
 import '../drawer.dart';
 
-class TemplesPage extends StatefulWidget {
+class MantraPage extends StatefulWidget {
   @override
-  _TemplesPageState createState() => _TemplesPageState();
+  _MantraPageState createState() => _MantraPageState();
 }
 
-class _TemplesPageState extends State<TemplesPage> {
+class _MantraPageState extends State<MantraPage> {
   int index = 0;
-
-  Future<Temples> _templesModel;
+  List mantraBanners = [];
 
   // Future<Temples> futureTemples;
 
@@ -24,7 +21,6 @@ class _TemplesPageState extends State<TemplesPage> {
     //print(_checkInternetConnectivity());
     _checkInternetConnectivity().then((network) {
       if (network != null && network) {
-        _templesModel = API_Manager().getTemples();
         getData();
         //print(_welcomeModel);
       } else {
@@ -39,6 +35,40 @@ class _TemplesPageState extends State<TemplesPage> {
     //Text(item);
     //data = data['homepageTempledetailModels'];
     //print(data);
+
+    mantraBanners = [
+      {
+        'imagePath':
+            "https://shrisanatandharam.com/front-assets/img/1.jpg",
+        'title': 'Chalisha',
+        'id': 1,
+      },
+      {
+        'imagePath':
+            "https://shrisanatandharam.com/front-assets/img/2.jpg",
+        'title': 'Arati',
+        'id': 2,
+      },
+      {
+        'imagePath':
+            "https://shrisanatandharam.com/front-assets/img/3.jpg",
+        'title': 'Mantra',
+        'id': 3,
+      },
+      {
+        'imagePath':
+            "https://shrisanatandharam.com/front-assets/img/4.jpg",
+        'title': 'Stotra',
+        'id': 4,
+      },
+      {
+        'imagePath':
+            "https://shrisanatandharam.com/front-assets/img/5.jpg",
+        'title': 'Granth',
+        'id': 5,
+      },
+    ];
+
     setState(() {});
   }
 
@@ -74,7 +104,7 @@ class _TemplesPageState extends State<TemplesPage> {
     return Scaffold(
       backgroundColor: Colors.grey[200],
       appBar: AppBar(
-        title: Text('Temples'),
+        title: Text('Mantra/Chalisa'),
         actions: [],
       ),
       body: Container(
@@ -85,38 +115,17 @@ class _TemplesPageState extends State<TemplesPage> {
                 repeat: ImageRepeat.repeat),
           ),
           child: SingleChildScrollView(
-            child: _templesModel != null
+            child: mantraBanners != null
                 ? Column(
                     children: [
-                      FutureBuilder<Temples>(
-                          future: _templesModel,
-                          builder: (context, snapshot) {
-                            if (snapshot.hasData) {
-                              var itemCount = snapshot
-                                  .data.homepageTempledetailModels.length;
-                              return ListView.builder(
-                                  shrinkWrap: true,
-                                  physics: ScrollPhysics(),
-                                  itemCount: itemCount,
-                                  itemBuilder: (context, index) {
-                                    var item = snapshot
-                                        .data.homepageTempledetailModels[index];
-                                    return _carouselItem(
-                                        context,
-                                        item.imageName,
-                                        item.organisationName,
-                                        item.organisationId);
-                                  });
-                            }
-                            return Column(children: [
-                              SizedBox(
-                                height: 400,
-                                child: Center(
-                                  child: CircularProgressIndicator(),
-                                ),
-                              ),
-                            ]);
-                          }),
+                      ListView(
+                        shrinkWrap: true,
+                        physics: ScrollPhysics(),
+                        children: mantraBanners
+                            .map((item) => _carouselItem(context,
+                                item['imagePath'], item['title'], item['id']))
+                            .toList(),
+                      ),
                       SizedBox(height: 40),
                     ],
                   )

@@ -2,8 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:splashscreen/splashscreen.dart';
 import 'package:sanatan_dharam/pages/home_page.dart';
 import 'package:sanatan_dharam/pages/temples.dart';
+import 'package:sanatan_dharam/pages/panchang.dart';
+import 'package:sanatan_dharam/pages/marriage_bureau.dart';
+import 'package:sanatan_dharam/pages/vedic_acharya.dart';
+import 'package:sanatan_dharam/pages/goushala.dart';
+import 'package:sanatan_dharam/pages/mantra_chalisa.dart';
 import 'package:sanatan_dharam/utils/Constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sanatan_dharam/pages/katha_kirtan.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -31,6 +37,12 @@ Future main() async {
       routes: {
         "/home": (contxt) => HomePage(),
         "/temples": (contxt) => TemplesPage(),
+        "/panchang": (contxt) => PanchangPage(),
+        "/kirtan": (contxt) => KirtanPage(),
+        "/marriage": (contxt) => MarriagePage(),
+        "/vedic": (contxt) => VedicPage(),
+        "/goushala": (contxt) => GoushalaPage(),
+        "/mantra": (contxt) => MantraPage(),
         //"/details": (contxt) => DetailsPage(),
       },
     ),

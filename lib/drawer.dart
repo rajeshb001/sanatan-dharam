@@ -39,26 +39,44 @@ class MyDrawer extends StatelessWidget {
           ListTile(
             title: Text("PANCHANG"),
             leading: Icon(Icons.arrow_forward),
+            onTap: (){
+              Navigator.pushReplacementNamed(context, "/panchang");
+            },
           ),
           ListTile(
             title: Text("KATHA/KIRTAN"),
             leading: Icon(Icons.arrow_forward),
+            onTap: (){
+              Navigator.pushReplacementNamed(context, "/kirtan");
+            },
           ),
           ListTile(
             title: Text("MARRIAGE BUREAU"),
             leading: Icon(Icons.arrow_forward),
+            onTap: (){
+              Navigator.pushReplacementNamed(context, "/marriage");
+            },
           ),
           ListTile(
             title: Text("VEDIC ACHARYA"),
             leading: Icon(Icons.arrow_forward),
+            onTap: (){
+              Navigator.pushReplacementNamed(context, "/vedic");
+            },
           ),
           ListTile(
             title: Text("GAUSHALA"),
             leading: Icon(Icons.arrow_forward),
+            onTap: (){
+              Navigator.pushReplacementNamed(context, "/goushala");
+            },
           ),
           ListTile(
             title: Text("MANTRA/CHALISA"),
             leading: Icon(Icons.arrow_forward),
+            onTap: (){
+              Navigator.pushReplacementNamed(context, "/mantra");
+            },
           ),
         ],
       ),

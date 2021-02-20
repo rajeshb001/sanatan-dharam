@@ -1,20 +1,17 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
-import 'package:sanatan_dharam/models/homepage_temples.dart';
-import 'package:sanatan_dharam/services/api_manager.dart';
 import 'temple_details.dart';
 
 import '../drawer.dart';
 
-class TemplesPage extends StatefulWidget {
+class PanchangPage extends StatefulWidget {
   @override
-  _TemplesPageState createState() => _TemplesPageState();
+  _PanchangState createState() => _PanchangState();
 }
 
-class _TemplesPageState extends State<TemplesPage> {
+class _PanchangState extends State<PanchangPage> {
   int index = 0;
-
-  Future<Temples> _templesModel;
+  List panchangBanners = [];
 
   // Future<Temples> futureTemples;
 
@@ -24,7 +21,6 @@ class _TemplesPageState extends State<TemplesPage> {
     //print(_checkInternetConnectivity());
     _checkInternetConnectivity().then((network) {
       if (network != null && network) {
-        _templesModel = API_Manager().getTemples();
         getData();
         //print(_welcomeModel);
       } else {
@@ -39,6 +35,40 @@ class _TemplesPageState extends State<TemplesPage> {
     //Text(item);
     //data = data['homepageTempledetailModels'];
     //print(data);
+
+    panchangBanners = [
+      {
+        'imagePath':
+            "https://shrisanatandharam.com/front-assets/img/panchang/1.jpg",
+        'title': 'Daily',
+        'id': 1,
+      },
+      {
+        'imagePath':
+            "https://shrisanatandharam.com/front-assets/img/panchang/2.jpg",
+        'title': 'Ekadashi',
+        'id': 2,
+      },
+      {
+        'imagePath':
+            "https://shrisanatandharam.com/front-assets/img/panchang/3.jpg",
+        'title': 'Purnima',
+        'id': 3,
+      },
+      {
+        'imagePath':
+            "https://shrisanatandharam.com/front-assets/img/panchang/4.jpg",
+        'title': 'Amavasya',
+        'id': 4,
+      },
+      {
+        'imagePath':
+            "https://shrisanatandharam.com/front-assets/img/panchang/5.jpg",
+        'title': 'UpcommingFestival',
+        'id': 5,
+      },
+    ];
+
     setState(() {});
   }
 
@@ -74,7 +104,7 @@ class _TemplesPageState extends State<TemplesPage> {
     return Scaffold(
       backgroundColor: Colors.grey[200],
       appBar: AppBar(
-        title: Text('Temples'),
+        title: Text('Panchang'),
         actions: [],
       ),
       body: Container(
@@ -85,38 +115,17 @@ class _TemplesPageState extends State<TemplesPage> {
                 repeat: ImageRepeat.repeat),
           ),
           child: SingleChildScrollView(
-            child: _templesModel != null
+            child: panchangBanners != null
                 ? Column(
                     children: [
-                      FutureBuilder<Temples>(
-                          future: _templesModel,
-                          builder: (context, snapshot) {
-                            if (snapshot.hasData) {
-                              var itemCount = snapshot
-                                  .data.homepageTempledetailModels.length;
-                              return ListView.builder(
-                                  shrinkWrap: true,
-                                  physics: ScrollPhysics(),
-                                  itemCount: itemCount,
-                                  itemBuilder: (context, index) {
-                                    var item = snapshot
-                                        .data.homepageTempledetailModels[index];
-                                    return _carouselItem(
-                                        context,
-                                        item.imageName,
-                                        item.organisationName,
-                                        item.organisationId);
-                                  });
-                            }
-                            return Column(children: [
-                              SizedBox(
-                                height: 400,
-                                child: Center(
-                                  child: CircularProgressIndicator(),
-                                ),
-                              ),
-                            ]);
-                          }),
+                      ListView(
+                        shrinkWrap: true,
+                        physics: ScrollPhysics(),
+                        children: panchangBanners
+                            .map((item) => _carouselItem(context,
+                                item['imagePath'], item['title'], item['id']))
+                            .toList(),
+                      ),
                       SizedBox(height: 40),
                     ],
                   )
