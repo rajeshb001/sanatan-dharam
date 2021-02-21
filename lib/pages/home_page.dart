@@ -11,6 +11,8 @@ import 'package:sanatan_dharam/models/homepage_dispensary.dart';
 import 'package:sanatan_dharam/models/homepage_kk.dart';
 import 'package:sanatan_dharam/services/api_manager.dart';
 import 'temple_details.dart';
+import 'panchang_details.dart';
+import 'mantra_details.dart';
 
 import '../drawer.dart';
 
@@ -118,32 +120,27 @@ class _HomePageState extends State<HomePage> {
 
     mantraBanners = [
       {
-        'imagePath':
-            "https://shrisanatandharam.com/front-assets/img/1.jpg",
+        'imagePath': "https://shrisanatandharam.com/front-assets/img/1.jpg",
         'title': 'Chalisha',
         'id': 1,
       },
       {
-        'imagePath':
-            "https://shrisanatandharam.com/front-assets/img/2.jpg",
+        'imagePath': "https://shrisanatandharam.com/front-assets/img/2.jpg",
         'title': 'Arati',
         'id': 2,
       },
       {
-        'imagePath':
-            "https://shrisanatandharam.com/front-assets/img/3.jpg",
+        'imagePath': "https://shrisanatandharam.com/front-assets/img/3.jpg",
         'title': 'Mantra',
         'id': 3,
       },
       {
-        'imagePath':
-            "https://shrisanatandharam.com/front-assets/img/4.jpg",
+        'imagePath': "https://shrisanatandharam.com/front-assets/img/4.jpg",
         'title': 'Stotra',
         'id': 4,
       },
       {
-        'imagePath':
-            "https://shrisanatandharam.com/front-assets/img/5.jpg",
+        'imagePath': "https://shrisanatandharam.com/front-assets/img/5.jpg",
         'title': 'Granth',
         'id': 5,
       },
@@ -179,7 +176,7 @@ class _HomePageState extends State<HomePage> {
         'title': 'Rudrabhishek Pooja',
         'id': 5,
       },
-            {
+      {
         'imagePath':
             "https://shrisanatandharam.com/front-assets/img/vedic/6.jpg",
         'title': 'Others',
@@ -284,7 +281,7 @@ class _HomePageState extends State<HomePage> {
                                         "https://www.shrisanatandharam.com/FileUpload/" +
                                             item.imageName,
                                         item.organisationName,
-                                        item.organisationId);
+                                        item.organisationId, 'live');
                                   },
                                   options: CarouselOptions(
                                     height: 200,
@@ -333,7 +330,7 @@ class _HomePageState extends State<HomePage> {
                                         context,
                                         item.imageName,
                                         item.organisationName,
-                                        item.organisationId);
+                                        item.organisationId, 'temples');
                                   },
                                   options: CarouselOptions(
                                     height: 200,
@@ -364,11 +361,8 @@ class _HomePageState extends State<HomePage> {
                       SizedBox(height: 10),
                       CarouselSlider(
                           items: panchangBanners
-                              .map((item) => _carouselItem(
-                                  context,
-                                  item['imagePath'],
-                                  item['title'],
-                                  item['id']))
+                              .map((item) => _carouselItem(context,
+                                  item['imagePath'], item['title'], item['id'], 'panchang'))
                               .toList(),
                           options: CarouselOptions(
                             height: 200,
@@ -403,13 +397,10 @@ class _HomePageState extends State<HomePage> {
                               return CarouselSlider.builder(
                                   itemCount: itemCount,
                                   itemBuilder: (context, index, realIdx) {
-                                    var item = snapshot
-                                        .data.kathakirtanns[index];
-                                    return _carouselItem(
-                                        context,
-                                        item.imgName,
-                                        item.title,
-                                        item.id);
+                                    var item =
+                                        snapshot.data.kathakirtanns[index];
+                                    return _carouselItem(context, item.imgName,
+                                        item.title, item.id,'kirtan');
                                   },
                                   options: CarouselOptions(
                                     height: 200,
@@ -453,7 +444,7 @@ class _HomePageState extends State<HomePage> {
                                         context,
                                         item.imageName,
                                         item.organisationName,
-                                        item.organisationId);
+                                        item.organisationId,'marriage');
                                   },
                                   options: CarouselOptions(
                                     height: 200,
@@ -497,7 +488,7 @@ class _HomePageState extends State<HomePage> {
                                         context,
                                         item.imageName,
                                         item.organisationName,
-                                        item.organisationId);
+                                        item.organisationId,'lab');
                                   },
                                   options: CarouselOptions(
                                     height: 200,
@@ -541,7 +532,7 @@ class _HomePageState extends State<HomePage> {
                                         context,
                                         item.imageName,
                                         item.organisationName,
-                                        item.organisationId);
+                                        item.organisationId,'school');
                                   },
                                   options: CarouselOptions(
                                     height: 200,
@@ -585,7 +576,7 @@ class _HomePageState extends State<HomePage> {
                                         context,
                                         item.imageName,
                                         item.organisationName,
-                                        item.organisationId);
+                                        item.organisationId,'goushala');
                                   },
                                   options: CarouselOptions(
                                     height: 200,
@@ -616,11 +607,8 @@ class _HomePageState extends State<HomePage> {
                       SizedBox(height: 10),
                       CarouselSlider(
                           items: mantraBanners
-                              .map((item) => _carouselItem(
-                                  context,
-                                  item['imagePath'],
-                                  item['title'],
-                                  item['id']))
+                              .map((item) => _carouselItem(context,
+                                  item['imagePath'], item['title'], item['id'],'mantra'))
                               .toList(),
                           options: CarouselOptions(
                             height: 200,
@@ -648,11 +636,8 @@ class _HomePageState extends State<HomePage> {
                       SizedBox(height: 10),
                       CarouselSlider(
                           items: vedicBanners
-                              .map((item) => _carouselItem(
-                                  context,
-                                  item['imagePath'],
-                                  item['title'],
-                                  item['id']))
+                              .map((item) => _carouselItem(context,
+                                  item['imagePath'], item['title'], item['id'], 'vedic'))
                               .toList(),
                           options: CarouselOptions(
                             height: 200,
@@ -683,18 +668,49 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-Widget _carouselItem(context, String imgPath, String title, int orgId) {
+Widget _carouselItem(
+    context, String imgPath, String title, int orgId, String category) {
   return InkWell(
     onTap: () {
       //print("Click event on Container");
       //Navigator.pushReplacementNamed(context, "/details");
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => TemplePage(
-              id: orgId,
-            ),
-          ));
+      switch (category) {
+        case 'temples':
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => TemplePage(
+                  id: orgId,
+                ),
+              ));
+          break;
+        case 'panchang':
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => PanchangPage(
+                  id: orgId,
+                ),
+              ));
+          break;          
+        case 'mantra':
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => MantraPage(
+                  id: orgId,
+                ),
+              ));
+          break; 
+        default:
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => TemplePage(
+                  id: orgId,
+                ),
+              ));
+      }
     },
     child: Stack(
       children: [

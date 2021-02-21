@@ -10,6 +10,8 @@ import 'package:sanatan_dharam/models/homepage_temples.dart';
 import 'package:sanatan_dharam/models/homepage_gs.dart';
 import 'package:sanatan_dharam/models/temple_model.dart';
 import 'package:sanatan_dharam/models/homepage_kk.dart';
+import 'package:sanatan_dharam/models/details_panchang.dart';
+import 'package:sanatan_dharam/models/details_mantra.dart';
 
 // ignore: camel_case_types
 class API_Manager {
@@ -146,7 +148,7 @@ class API_Manager {
 
     return kkModel;
   }
-
+  //DETAILS CODE STARTS HERE
   Future<Details> getTempleDetails(int id) async {
     var client = http.Client();
     var tDetails;
@@ -166,4 +168,44 @@ class API_Manager {
 
     return tDetails;
   }
+  Future<DetailsPanchang> getPanchangDetails(int id) async {
+    var client = http.Client();
+    var tDetails;
+
+    try {
+      //print(Strings.panchangDetailsUrl+id.toString());
+      var response = await client.get(Strings.panchangDetailsUrl+id.toString());
+      if (response.statusCode == 200) {
+        var jsonString = response.body;
+        var jsonMap = json.decode(jsonString);
+
+        tDetails = DetailsPanchang.fromJson(jsonMap);
+      }
+    } catch (Exception) {
+      return tDetails;
+    }
+
+    return tDetails;
+  }
+  Future<DetailsMantra> getMantraDetails(int id) async {
+    var client = http.Client();
+    var tDetails;
+
+    try {
+      //print(Strings.panchangDetailsUrl+id.toString());
+      var response = await client.get(Strings.mantraDetailsUrl+id.toString());
+      if (response.statusCode == 200) {
+        var jsonString = response.body;
+        var jsonMap = json.decode(jsonString);
+
+        tDetails = DetailsMantra.fromJson(jsonMap);
+      }
+    } catch (Exception) {
+      return tDetails;
+    }
+
+    return tDetails;
+  }
+
+
 }

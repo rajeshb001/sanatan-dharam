@@ -16,5 +16,10 @@ class Strings {
   static String detailsUrl =
       'https://www.shrisanatandharam.com/api/home/HomePageDetails?orid=';  
   static String templeDetailsUrl =
-      'https://www.shrisanatandharam.com/api/home/TempleDetails?orid=';               
+      'https://www.shrisanatandharam.com/api/home/TempleDetails?orid=';       
+      
+  static String panchangDetailsUrl =
+      'https://www.shrisanatandharam.com/api/home/PanchangDetails?orid=';  
+  static String mantraDetailsUrl =
+      'https://www.shrisanatandharam.com/api/home/chalishaAratiList?orid=';          
 }

@@ -4,8 +4,6 @@ import 'package:sanatan_dharam/utils/Constants.dart';
 import 'package:sanatan_dharam/services/api_manager.dart';
 
 import '../drawer.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 
 class DetailsPage extends StatefulWidget {
   final id;

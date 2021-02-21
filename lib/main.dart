@@ -11,7 +11,15 @@ import 'package:sanatan_dharam/utils/Constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sanatan_dharam/pages/katha_kirtan.dart';
 
+import 'package:flutter_downloader/flutter_downloader.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
+
 Future main() async {
+  await FlutterDownloader.initialize(
+      debug: false // optional: set false to disable printing logs to console
+      );
+
   WidgetsFlutterBinding.ensureInitialized();
   Constants.prefs = await SharedPreferences.getInstance();
   runApp(
