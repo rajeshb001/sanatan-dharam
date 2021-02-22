@@ -19,6 +19,7 @@ class _TemplePageState extends State<TemplePage> {
   final id;
   _TemplePageState({@required this.id});
   List homepageBanners = [];
+  List adBanners = [];
   int index = 0;
 
   Future<Details> _tDetailsModel;
@@ -68,6 +69,19 @@ class _TemplePageState extends State<TemplePage> {
         "https://shrisanatandharam.com/SliderImg/shrisanatandharam-slider-img-5.jpg",
         fit: BoxFit.cover,
       ),
+    ];
+
+    adBanners = [
+      {
+        'imagePath': "https://shrisanatandharam.com/front-assets/img/ads2.jpg",
+      },
+      {
+        'imagePath': "https://shrisanatandharam.com/front-assets/img/ads3.jpg",
+      },
+      {
+        'imagePath':
+            "https://shrisanatandharam.com/front-assets/img/guruji.jpg",
+      },
     ];
 
     //Text(item);
@@ -199,7 +213,9 @@ class _TemplePageState extends State<TemplePage> {
                                             final _serviceItem = snapshot.data
                                                 .organisationServiceList[index];
                                             return RaisedButton(
-                                              onPressed: () {},
+                                              onPressed: () {
+                                                
+                                              },
                                               textColor: Colors.white,
                                               padding: const EdgeInsets.only(
                                                   bottom: 10.0),
@@ -226,6 +242,19 @@ class _TemplePageState extends State<TemplePage> {
                                             );
                                           })
                                       : Text("No Services Available"),
+                                  ListView.builder(
+                                      shrinkWrap: true,
+                                      physics: ScrollPhysics(),
+                                      itemCount: adBanners.length,
+                                      itemBuilder: (context, index) {
+                                        return Container(
+                                            padding: const EdgeInsets.only(
+                                                  bottom: 10.0),
+                                            child: Image.network(
+                                          adBanners[index]["imagePath"],
+                                          fit: BoxFit.cover,
+                                        ));
+                                      }),
                                 ],
                               );
 

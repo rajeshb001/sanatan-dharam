@@ -15,6 +15,7 @@ import 'panchang_details.dart';
 import 'mantra_details.dart';
 
 import '../drawer.dart';
+import 'youtube_live.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -702,6 +703,15 @@ Widget _carouselItem(
                 ),
               ));
           break; 
+          case 'live':
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => YoutubeLivePage(
+                  id: orgId,
+                ),
+              ));
+          break;
         default:
           Navigator.push(
               context,
