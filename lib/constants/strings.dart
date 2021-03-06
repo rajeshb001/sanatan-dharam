@@ -21,5 +21,8 @@ class Strings {
   static String panchangDetailsUrl =
       'https://www.shrisanatandharam.com/api/home/PanchangDetails?orid=';  
   static String mantraDetailsUrl =
-      'https://www.shrisanatandharam.com/api/home/chalishaAratiList?orid=';          
+      'https://www.shrisanatandharam.com/api/home/chalishaAratiList?orid=';  
+  static String kirtanDetailsUrl =
+      'https://www.shrisanatandharam.com/api/home/BindKathaKirtanDetails?kkid=';       
+              
 }

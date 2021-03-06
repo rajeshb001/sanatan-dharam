@@ -1,8 +1,8 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:sanatan_dharam/models/details_panchang.dart';
 import 'package:sanatan_dharam/services/api_manager.dart';
-import 'package:expandable_text/expandable_text.dart';
 
 import '../drawer.dart';
 
@@ -145,18 +145,7 @@ class _PanchangPageState extends State<PanchangPage> {
                                     ),
                                     SizedBox(
                                       width: double.infinity,
-                                      child: ExpandableText(
-                                        snapshot.data.panchanglist[0].fullDesc,
-                                        expandText: 'show more',
-                                        maxLines: 20,
-                                        collapseText: '...show less',
-                                        linkColor: Colors.red,
-                                        style: TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.normal,
-                                          color: Colors.black,
-                                        ),
-                                      ),
+                                      child: Html(data: snapshot.data.panchanglist[0].fullDesc,),
                                     ),
                                     SizedBox(
                                       height: 10,

@@ -1,6 +1,5 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
-import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../drawer.dart';
 
@@ -69,13 +68,6 @@ class _YoutubeLivePageState extends State<YoutubeLivePage> {
 
   @override
   Widget build(BuildContext context) {
-    YoutubePlayerController _controller = YoutubePlayerController(
-      initialVideoId: 'UxyML8JwkOI',
-      flags: YoutubePlayerFlags(
-        autoPlay: false,
-        mute: true,
-      ),
-    );
 
     return Scaffold(
       backgroundColor: Colors.grey[200],
@@ -94,16 +86,9 @@ class _YoutubeLivePageState extends State<YoutubeLivePage> {
               child: Column(
             children: [
               Text("Testing"),
-              SizedBox(
-                height: 250,
-                child: YoutubePlayer(
-                  controller: _controller,
-                  showVideoProgressIndicator: true,
-                  progressIndicatorColor: Colors.blueAccent,
-                  liveUIColor: Colors.amber,
-                ),
-              ),
+              
               SizedBox(height: 40),
+              
             ],
           ))),
       drawer: MyDrawer(),

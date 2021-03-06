@@ -12,6 +12,7 @@ import 'package:sanatan_dharam/models/temple_model.dart';
 import 'package:sanatan_dharam/models/homepage_kk.dart';
 import 'package:sanatan_dharam/models/details_panchang.dart';
 import 'package:sanatan_dharam/models/details_mantra.dart';
+import 'package:sanatan_dharam/models/details_kirtan.dart';
 
 // ignore: camel_case_types
 class API_Manager {
@@ -206,6 +207,24 @@ class API_Manager {
 
     return tDetails;
   }
+  Future<DetailsKirtan> getKirtanDetails(int id) async {
+    var client = http.Client();
+    var tDetails;
 
+    try {
+      //print(Strings.panchangDetailsUrl+id.toString());
+      var response = await client.get(Strings.kirtanDetailsUrl+id.toString());
+      if (response.statusCode == 200) {
+        var jsonString = response.body;
+        var jsonMap = json.decode(jsonString);
+
+        tDetails = DetailsKirtan.fromJson(jsonMap);
+      }
+    } catch (Exception) {
+      return tDetails;
+    }
+
+    return tDetails;
+  }
 
 }

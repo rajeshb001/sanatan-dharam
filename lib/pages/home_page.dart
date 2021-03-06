@@ -13,6 +13,7 @@ import 'package:sanatan_dharam/services/api_manager.dart';
 import 'temple_details.dart';
 import 'panchang_details.dart';
 import 'mantra_details.dart';
+import 'kirtan_details.dart';
 
 import '../drawer.dart';
 import 'youtube_live.dart';
@@ -703,6 +704,15 @@ Widget _carouselItem(
                 ),
               ));
           break; 
+        case 'kirtan':
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => KirtanPage(
+                  id: orgId,
+                ),
+              ));
+          break;           
           case 'live':
             Navigator.push(
               context,

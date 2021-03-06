@@ -35,7 +35,7 @@ class KathaKirtan {
 class Kathakirtann {
     Kathakirtann({
         this.id,
-        this.date,
+        this.uploadDate,
         this.organisationId,
         this.title,
         this.fullDesc,
@@ -43,10 +43,11 @@ class Kathakirtann {
         this.fileExt,
         this.imgName,
         this.imgExt,
+        this.liveStatus,
     });
 
     int id;
-    DateTime date;
+    DateTime uploadDate;
     int organisationId;
     String title;
     String fullDesc;
@@ -54,10 +55,11 @@ class Kathakirtann {
     dynamic fileExt;
     String imgName;
     dynamic imgExt;
+    int liveStatus;
 
     factory Kathakirtann.fromJson(Map<String, dynamic> json) => Kathakirtann(
         id: json["id"],
-        date: DateTime.parse(json["date"]),
+        uploadDate: DateTime.parse(json["uploadDate"]),
         organisationId: json["organisationId"],
         title: json["title"],
         fullDesc: json["fullDesc"],
@@ -65,11 +67,12 @@ class Kathakirtann {
         fileExt: json["fileExt"],
         imgName: json["imgName"],
         imgExt: json["imgExt"],
+        liveStatus: json["liveStatus"],
     );
 
     Map<String, dynamic> toJson() => {
         "id": id,
-        "date": date.toIso8601String(),
+        "uploadDate": uploadDate.toIso8601String(),
         "organisationId": organisationId,
         "title": title,
         "fullDesc": fullDesc,
@@ -77,5 +80,6 @@ class Kathakirtann {
         "fileExt": fileExt,
         "imgName": imgName,
         "imgExt": imgExt,
+        "liveStatus": liveStatus,
     };
 }

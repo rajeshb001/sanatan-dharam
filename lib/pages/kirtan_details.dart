@@ -4,27 +4,27 @@ import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_html/flutter_html.dart';
-import 'package:sanatan_dharam/models/temple_model.dart';
+import 'package:sanatan_dharam/models/details_kirtan.dart';
 import 'package:sanatan_dharam/services/api_manager.dart';
 
 import '../drawer.dart';
 
-class TemplePage extends StatefulWidget {
+class KirtanPage extends StatefulWidget {
   final id;
-  TemplePage({Key key, @required this.id}) : super(key: key);
+  KirtanPage({Key key, @required this.id}) : super(key: key);
 
   @override
-  _TemplePageState createState() => _TemplePageState(id: this.id);
+  _KirtanPageState createState() => _KirtanPageState(id: this.id);
 }
 
-class _TemplePageState extends State<TemplePage> {
+class _KirtanPageState extends State<KirtanPage> {
   final id;
-  _TemplePageState({@required this.id});
+  _KirtanPageState({@required this.id});
   List homepageBanners = [];
   List adBanners = [];
   int index = 0;
 
-  Future<Details> _tDetailsModel;
+  Future<DetailsKirtan> _tDetailsModel;
 
   // Future<Temples> futureTemples;
 
@@ -36,7 +36,7 @@ class _TemplePageState extends State<TemplePage> {
       if (network != null && network) {
         if (this.id != null) {
           //print(url);
-          _tDetailsModel = API_Manager().getTempleDetails(this.id);
+          _tDetailsModel = API_Manager().getKirtanDetails(this.id);
           //print(_tDetailsModel);
           getData();
         }
@@ -138,22 +138,20 @@ class _TemplePageState extends State<TemplePage> {
             child: _tDetailsModel != null
                 ? Column(
                     children: [
-                      FutureBuilder<Details>(
+                      FutureBuilder<DetailsKirtan>(
                           future: _tDetailsModel,
                           builder: (context, snapshot) {
                             if (snapshot.hasData) {
                               var itemCount =
-                                  snapshot.data.sliderImageList.length;
-                              var serviceCount =
-                                  snapshot.data.organisationServiceList.length;
+                                  snapshot.data.kathaKirtanTempleImageList.length;
                               return Column(
                                 children: [
                                   SizedBox(
                                     height: 50,
                                     width: double.infinity,
                                     child: Text(
-                                      snapshot.data.homepageTempledetail
-                                          .organisationName,
+                                      snapshot.data.kathakirtanns
+                                          .title,
                                       style: TextStyle(
                                         fontSize: 20,
                                         fontWeight: FontWeight.bold,
@@ -165,9 +163,9 @@ class _TemplePageState extends State<TemplePage> {
                                       itemCount: itemCount,
                                       itemBuilder: (context, index, realIdx) {
                                         var item = snapshot
-                                            .data.sliderImageList[index];
+                                            .data.kathaKirtanTempleImageList[index];
                                         return _carouselItem(context,
-                                            item.imageName, item.imageTitle);
+                                            'https://shrisanatandharam.com/FileUpload/'+item.imageName, item.organisationName);
                                       },
                                       options: CarouselOptions(
                                         height: 200,
@@ -191,50 +189,13 @@ class _TemplePageState extends State<TemplePage> {
                                   SizedBox(
                                     width: double.infinity,
                                     child: Html(data: snapshot
-                                          .data.homepageTempledetail.fullDesc,
+                                          .data.kathakirtanns.fullDesc,
                                           ),
                                     
                                   ),
                                   SizedBox(
                                     height: 10,
                                   ),
-                                  serviceCount > 0
-                                      ? ListView.builder(
-                                          shrinkWrap: true,
-                                          itemCount: serviceCount,
-                                          itemBuilder: (context, index) {
-                                            final _serviceItem = snapshot.data
-                                                .organisationServiceList[index];
-                                            return RaisedButton(
-                                              onPressed: () {
-                                                
-                                              },
-                                              textColor: Colors.white,
-                                              padding: const EdgeInsets.only(
-                                                  bottom: 10.0),
-                                              child: Container(
-                                                width: double.infinity,
-                                                decoration: const BoxDecoration(
-                                                  gradient: LinearGradient(
-                                                    colors: <Color>[
-                                                      Colors.red,
-                                                      Colors.orange,
-                                                    ],
-                                                  ),
-                                                ),
-                                                padding:
-                                                    const EdgeInsets.all(10.0),
-                                                child: Center(
-                                                  child: Text(
-                                                      _serviceItem
-                                                          .orgServiceName,
-                                                      style: TextStyle(
-                                                          fontSize: 20)),
-                                                ),
-                                              ),
-                                            );
-                                          })
-                                      : Text("No Services Available"),
                                   ListView.builder(
                                       shrinkWrap: true,
                                       physics: ScrollPhysics(),
