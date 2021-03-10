@@ -13,6 +13,8 @@ import 'package:sanatan_dharam/models/homepage_kk.dart';
 import 'package:sanatan_dharam/models/details_panchang.dart';
 import 'package:sanatan_dharam/models/details_mantra.dart';
 import 'package:sanatan_dharam/models/details_kirtan.dart';
+import 'package:sanatan_dharam/models/homepage_sdp.dart';
+import 'package:sanatan_dharam/models/details_live.dart';
 
 // ignore: camel_case_types
 class API_Manager {
@@ -226,5 +228,41 @@ class API_Manager {
 
     return tDetails;
   }
+  Future<Sdp> getSDP() async {
+    var client = http.Client();
+    var sdpModel;
 
+    try {
+      var response = await client.get(Strings.sdpUrl);
+      if (response.statusCode == 200) {
+        var jsonString = response.body;
+        var jsonMap = json.decode(jsonString);
+
+        sdpModel = Sdp.fromJson(jsonMap);
+      }
+    } catch (Exception) {
+      return sdpModel;
+    }
+
+    return sdpModel;
+  }
+  Future<LiveDetails> getLiveDetails(int id) async {
+    var client = http.Client();
+    var liveDetails;
+
+    try {
+      //print(Strings.panchangDetailsUrl+id.toString());
+      var response = await client.get(Strings.liveDetailsUrl+id.toString());
+      if (response.statusCode == 200) {
+        var jsonString = response.body;
+        var jsonMap = json.decode(jsonString);
+
+        liveDetails = LiveDetails.fromJson(jsonMap);
+      }
+    } catch (Exception) {
+      return liveDetails;
+    }
+
+    return liveDetails;
+  }
 }

@@ -10,6 +10,7 @@ import 'package:sanatan_dharam/pages/mantra_chalisa.dart';
 import 'package:sanatan_dharam/utils/Constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sanatan_dharam/pages/katha_kirtan.dart';
+import 'package:sanatan_dharam/pages/sdb.dart';
 
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:path_provider/path_provider.dart';
@@ -30,14 +31,10 @@ Future main() async {
       //home:  HomePage(),
       home: SplashScreen(
         seconds: 5,
-        image: Image.asset("assets/sanatandharam-logo.png"),
+        image: Image.asset("assets/sanatandharam-logo.gif"),
         photoSize: 200.0,
-        backgroundColor: Colors.redAccent,
-        gradientBackground: LinearGradient(
-          begin: Alignment.centerLeft,
-          end: Alignment.centerRight,
-          colors: <Color>[Colors.red, Colors.orange],
-        ),
+        backgroundColor: Color(0xffff0000),
+        
         navigateAfterSeconds: HomePage(),
         loaderColor: Colors.white,
       ),
@@ -51,6 +48,7 @@ Future main() async {
         "/vedic": (contxt) => VedicPage(),
         "/goushala": (contxt) => GoushalaPage(),
         "/mantra": (contxt) => MantraPage(),
+        "/sdp": (contxt) => SdpPage(),
         //"/details": (contxt) => DetailsPage(),
       },
     ),

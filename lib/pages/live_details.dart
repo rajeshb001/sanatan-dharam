@@ -2,29 +2,28 @@ import 'dart:ui';
 
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_html/flutter_html.dart';
-import 'package:sanatan_dharam/models/details_kirtan.dart';
+import 'package:sanatan_dharam/models/details_live.dart';
 import 'package:sanatan_dharam/services/api_manager.dart';
 
 import '../drawer.dart';
 
-class KirtanPage extends StatefulWidget {
+class LiveDetailsPage extends StatefulWidget {
   final id;
-  KirtanPage({Key key, @required this.id}) : super(key: key);
+  LiveDetailsPage({Key key, @required this.id}) : super(key: key);
 
   @override
-  _KirtanPageState createState() => _KirtanPageState(id: this.id);
+  _LiveDetailsPageState createState() => _LiveDetailsPageState(id: this.id);
 }
 
-class _KirtanPageState extends State<KirtanPage> {
+class _LiveDetailsPageState extends State<LiveDetailsPage> {
   final id;
-  _KirtanPageState({@required this.id});
+  _LiveDetailsPageState({@required this.id});
   List homepageBanners = [];
   List adBanners = [];
   int index = 0;
 
-  Future<DetailsKirtan> _tDetailsModel;
+  Future<LiveDetails> _tDetailsModel;
 
   // Future<Temples> futureTemples;
 
@@ -36,7 +35,7 @@ class _KirtanPageState extends State<KirtanPage> {
       if (network != null && network) {
         if (this.id != null) {
           //print(url);
-          _tDetailsModel = API_Manager().getKirtanDetails(this.id);
+          _tDetailsModel = API_Manager().getLiveDetails(this.id);
           //print(_tDetailsModel);
           getData();
         }
@@ -138,20 +137,18 @@ class _KirtanPageState extends State<KirtanPage> {
             child: _tDetailsModel != null
                 ? Column(
                     children: [
-                      FutureBuilder<DetailsKirtan>(
+                      FutureBuilder<LiveDetails>(
                           future: _tDetailsModel,
                           builder: (context, snapshot) {
                             if (snapshot.hasData) {
-                              var itemCount =
-                                  snapshot.data.kathaKirtanTempleImageList.length;
                               return Column(
                                 children: [
                                   SizedBox(
                                     height: 50,
                                     width: double.infinity,
                                     child: Text(
-                                      snapshot.data.kathakirtanns
-                                          .title,
+                                      snapshot.data.homepageTempledetails
+                                          .organisationName,
                                       style: TextStyle(
                                         fontSize: 20,
                                         fontWeight: FontWeight.bold,
@@ -159,21 +156,6 @@ class _KirtanPageState extends State<KirtanPage> {
                                       ),
                                     ),
                                   ),
-                                  CarouselSlider.builder(
-                                      itemCount: itemCount,
-                                      itemBuilder: (context, index, realIdx) {
-                                        var item = snapshot
-                                            .data.kathaKirtanTempleImageList[index];
-                                        return _carouselItem(context,
-                                            item.imageName, item.organisationName);
-                                      },
-                                      options: CarouselOptions(
-                                        height: 200,
-                                        enlargeCenterPage: true,
-                                        autoPlay: true,
-                                        autoPlayCurve: Curves.easeInOut,
-                                      )),
-                                  SizedBox(height: 20),
                                   SizedBox(
                                     height: 35,
                                     width: double.infinity,
@@ -189,7 +171,7 @@ class _KirtanPageState extends State<KirtanPage> {
                                   SizedBox(
                                     width: double.infinity,
                                     child: Html(data: snapshot
-                                          .data.kathakirtanns.fullDesc,
+                                          .data.homepageTempledetails.liveStreamText,
                                           ),
                                     
                                   ),

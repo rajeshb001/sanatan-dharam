@@ -61,6 +61,7 @@ flutter:
     - assets/logo1.png
     - assets/sanatandharam-logo.png
     - assets/aum.PNG
+    - assets/sanatandharam-logo.gif
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

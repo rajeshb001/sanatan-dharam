@@ -16,7 +16,7 @@ import 'mantra_details.dart';
 import 'kirtan_details.dart';
 
 import '../drawer.dart';
-import 'youtube_live.dart';
+import 'live_details.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -717,7 +717,7 @@ Widget _carouselItem(
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => YoutubeLivePage(
+                builder: (context) => LiveDetailsPage(
                   id: orgId,
                 ),
               ));

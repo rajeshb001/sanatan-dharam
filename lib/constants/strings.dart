@@ -24,5 +24,8 @@ class Strings {
       'https://www.shrisanatandharam.com/api/home/chalishaAratiList?orid=';  
   static String kirtanDetailsUrl =
       'https://www.shrisanatandharam.com/api/home/BindKathaKirtanDetails?kkid=';       
-              
+  static String sdpUrl =
+      'https://shrisanatandharam.com/api/home/sdp';    
+  static String liveDetailsUrl =
+      'https://shrisanatandharam.com/api/home/LiveStream?orid=';                     
 }
