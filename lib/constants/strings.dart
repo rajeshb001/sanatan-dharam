@@ -27,5 +27,7 @@ class Strings {
   static String sdpUrl =
       'https://shrisanatandharam.com/api/home/sdp';    
   static String liveDetailsUrl =
-      'https://shrisanatandharam.com/api/home/LiveStream?orid=';                     
+      'https://shrisanatandharam.com/api/home/LiveStream?orid=';   
+  static String serviceDetailsUrl =
+      'https://www.shrisanatandharam.com/api/home/ServiceDetails?orid=';                         
 }

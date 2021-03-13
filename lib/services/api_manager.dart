@@ -15,6 +15,7 @@ import 'package:sanatan_dharam/models/details_mantra.dart';
 import 'package:sanatan_dharam/models/details_kirtan.dart';
 import 'package:sanatan_dharam/models/homepage_sdp.dart';
 import 'package:sanatan_dharam/models/details_live.dart';
+import 'package:sanatan_dharam/models/details_service.dart';
 
 // ignore: camel_case_types
 class API_Manager {
@@ -265,4 +266,23 @@ class API_Manager {
 
     return liveDetails;
   }
+  Future<DetailsService> getServiceDetails(int id) async {
+    var client = http.Client();
+    var tDetails;
+
+    try {
+      //print(Strings.panchangDetailsUrl+id.toString());
+      var response = await client.get(Strings.serviceDetailsUrl+id.toString());
+      if (response.statusCode == 200) {
+        var jsonString = response.body;
+        var jsonMap = json.decode(jsonString);
+
+        tDetails = DetailsService.fromJson(jsonMap);
+      }
+    } catch (Exception) {
+      return tDetails;
+    }
+
+    return tDetails;
+  }  
 }

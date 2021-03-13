@@ -17,63 +17,63 @@ class MyDrawer extends StatelessWidget {
           ),
           ListTile(
             title: Text("HOME"),
-            leading: Icon(Icons.arrow_forward),
+            leading: Icon(Icons.home),
             onTap: (){
               Navigator.pushReplacementNamed(context, "/home");
             },
           ),
           ListTile(
             title: Text("SDP SABHA"),
-            leading: Icon(Icons.arrow_forward),
+            leading: Icon(Icons.api),
             onTap: (){
               Navigator.pushReplacementNamed(context, "/sdp");
             },
           ),
           ListTile(
             title: Text("TEMPLES"),
-            leading: Icon(Icons.arrow_forward),
+            leading: Icon(Icons.circle_notifications),
             onTap: (){
               Navigator.pushReplacementNamed(context, "/temples");
             },
           ),
           ListTile(
             title: Text("PANCHANG"),
-            leading: Icon(Icons.arrow_forward),
+            leading: Icon(Icons.date_range),
             onTap: (){
               Navigator.pushReplacementNamed(context, "/panchang");
             },
           ),
           ListTile(
             title: Text("KATHA/KIRTAN"),
-            leading: Icon(Icons.arrow_forward),
+            leading: Icon(Icons.chrome_reader_mode),
             onTap: (){
               Navigator.pushReplacementNamed(context, "/kirtan");
             },
           ),
           ListTile(
             title: Text("MARRIAGE BUREAU"),
-            leading: Icon(Icons.arrow_forward),
+            leading: Icon(Icons.business),
             onTap: (){
               Navigator.pushReplacementNamed(context, "/marriage");
             },
           ),
           ListTile(
             title: Text("VEDIC ACHARYA"),
-            leading: Icon(Icons.arrow_forward),
+            leading: Icon(Icons.people),
             onTap: (){
               Navigator.pushReplacementNamed(context, "/vedic");
             },
           ),
           ListTile(
             title: Text("GAUSHALA"),
-            leading: Icon(Icons.arrow_forward),
+            leading: Icon(Icons.table_chart),
             onTap: (){
               Navigator.pushReplacementNamed(context, "/goushala");
             },
           ),
           ListTile(
             title: Text("MANTRA/CHALISA"),
-            leading: Icon(Icons.arrow_forward),
+            leading: Icon(Icons.swap_calls),
             onTap: (){
               Navigator.pushReplacementNamed(context, "/mantra");
             },
