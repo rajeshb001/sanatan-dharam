@@ -30,14 +30,14 @@ Future main() async {
       //home:  Constants.prefs.getBool("loggedin") == true ? HomePage() : LoginPage(),
       //home:  HomePage(),
       home: SplashScreen(
-        seconds: 5,
-        image: Image.asset("assets/sanatandharam-logo.gif"),
-        photoSize: 200.0,
-        backgroundColor: Color(0xffff0000),
-        
-        navigateAfterSeconds: HomePage(),
-        loaderColor: Colors.white,
-      ),
+            seconds: 5,
+            image: Image.asset("assets/sanatandharam-logo.gif"),
+            photoSize: 200.0,
+            backgroundColor: Color(0xffff0000),
+            
+            navigateAfterSeconds: HomePage(),
+            loaderColor: Colors.white,
+          ),
       theme: ThemeData(primarySwatch: Colors.red),
       routes: {
         "/home": (contxt) => HomePage(),

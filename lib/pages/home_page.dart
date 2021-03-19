@@ -741,9 +741,9 @@ Widget _carouselItem(
                   image: NetworkImage(imgPath), fit: BoxFit.cover)),
         ),
         Container(
-            height: 30,
+            height: 50,
             alignment: Alignment.center,
-            margin: EdgeInsets.only(top: 170.0),
+            margin: EdgeInsets.only(top: 150.0),
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.centerLeft,
